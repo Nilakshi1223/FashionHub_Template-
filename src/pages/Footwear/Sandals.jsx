@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import Sandals1 from "../../assets/Footwear/Sandals/sandals1.jpg";
 import Sandals2 from "../../assets/Footwear/Sandals/sandals2.jpg";
 import Sandals3 from "../../assets/Footwear/Sandals/sandals3.jpg";
@@ -17,21 +18,34 @@ const Sandals = () => {
     { title: "Summer Sandals", price: 79.99, rating: 4.7, img: Sandals1 },
     { title: "Beach Sandals", price: 69.99, rating: 4.6, img: Sandals2 },
     { title: "Casual Sandals", price: 89.99, rating: 4.8, img: Sandals3 },
-    
   ];
 
   return (
     <div className="pt-24 bg-white min-h-screen">
-      <section className="bg-gradient-to-r from-yellow-50 to-white py-12">
+      {/* Header */}
+      <motion.section
+        className="bg-gradient-to-r from-yellow-50 to-white py-12"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1 className="text-4xl font-bold text-yellow-600">Sandals Collection</h1>
           <p className="mt-2 text-gray-600">Lightweight and stylish sandals for all occasions.</p>
         </div>
-      </section>
+      </motion.section>
 
+      {/* Product Grid */}
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {sandals.map((item, index) => (
-          <div key={index} className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition">
+          <motion.div
+            key={index}
+            className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+            whileHover={{ scale: 1.03 }}
+          >
             <div className="relative">
               <img src={item.img} alt={item.title} className="w-full h-64 object-cover" />
               <button
@@ -48,7 +62,7 @@ const Sandals = () => {
               <p className="text-yellow-600 font-bold mt-2">Rs. {item.price}</p>
               <p className="text-sm text-gray-500 mt-1">⭐ {item.rating} / 5</p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

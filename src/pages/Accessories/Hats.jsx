@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import Hat1 from "../../assets/Accessories/Hats/hat1.jpg";
 import Hat2 from "../../assets/Accessories/Hats/hat2.jpg";
 import Hat3 from "../../assets/Accessories/Hats/hat3.jpg";
@@ -16,21 +17,30 @@ const Hats = () => {
   return (
     <div className="pt-24 bg-white min-h-screen">
       {/* Header */}
-      <section className="bg-gradient-to-r from-yellow-50 to-white py-12">
+      <motion.section
+        className="bg-gradient-to-r from-yellow-50 to-white py-12"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1 className="text-4xl font-bold text-yellow-600">Hats Collection</h1>
           <p className="mt-2 text-gray-600">
             Stay stylish and protected with our trendy hats.
           </p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Product Grid */}
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {hats.map((item, index) => (
-          <div
+          <motion.div
             key={index}
             className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+            whileHover={{ scale: 1.03 }}
           >
             <div className="relative">
               <img src={item.img} alt={item.title} className="w-full h-64 object-cover" />
@@ -52,7 +62,7 @@ const Hats = () => {
               <p className="text-yellow-600 font-bold mt-2">Rs. {item.price}</p>
               <p className="text-sm text-gray-500 mt-1">⭐ {item.rating} / 5</p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

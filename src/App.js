@@ -5,6 +5,7 @@ import Women from "./pages/Women";
 import Men from "./pages/Men";
 import Footwear from "./pages/Footwear";
 import Accessories from "./pages/Accessories";
+import About from "./pages/About";
 
 import Dresses from "./pages/Women/Dresses";
 import Sarees from "./pages/Women/Sarees";
@@ -36,6 +37,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+
 
         <Route path="/women" element={<Women />} />
           <Route path="/women/dresses" element={<Dresses />} />

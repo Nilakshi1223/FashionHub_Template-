@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  FiSearch,
-  FiShoppingBag,
-  FiUser,
-  FiMenu,
-  FiX,
-  FiChevronDown,
-} from "react-icons/fi";
+import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -74,16 +67,11 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 text-gray-700 font-medium relative">
-          <Link to="/" className="hover:text-pink-500">
-            Home
-          </Link>
+          <Link to="/" className="hover:text-pink-500">Home</Link>
 
           {/* Women Dropdown */}
           <div className="group relative">
-            <Link
-              to="/women"
-              className="hover:text-pink-500 flex items-center"
-            >
+            <Link to="/women" className="hover:text-pink-500 flex items-center">
               Women <FiChevronDown className="ml-1" />
             </Link>
             <div className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-0 rounded-lg border w-56">
@@ -119,10 +107,7 @@ const Navbar = () => {
 
           {/* Footwear Dropdown */}
           <div className="group relative">
-            <Link
-              to="/footwear"
-              className="hover:text-pink-500 flex items-center"
-            >
+            <Link to="/footwear" className="hover:text-pink-500 flex items-center">
               Footwear <FiChevronDown className="ml-1" />
             </Link>
             <div className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-0 rounded-lg border w-56">
@@ -140,10 +125,7 @@ const Navbar = () => {
 
           {/* Accessories Dropdown */}
           <div className="group relative">
-            <Link
-              to="/accessories"
-              className="hover:text-pink-500 flex items-center"
-            >
+            <Link to="/accessories" className="hover:text-pink-500 flex items-center">
               Accessories <FiChevronDown className="ml-1" />
             </Link>
             <div className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-0 rounded-lg border w-56">
@@ -159,6 +141,10 @@ const Navbar = () => {
             </div>
           </div>
 
+          {/* About Link */}
+          <Link to="/about" className="hover:text-pink-500">Peek Inside</Link>
+
+          {/* Sale Button */}
           <button
             onClick={handleSaleClick}
             className="flex items-center space-x-1 hover:text-pink-500"
@@ -190,53 +176,59 @@ const Navbar = () => {
           </Link>
 
           {/* Mobile Submenus */}
-{Object.entries(subMenus).map(([key, items]) => (
-  <div key={key}>
-    <div className="flex justify-between items-center border-b">
-      {/* Left: Navigate to main page */}
-      <Link
-        to={`/${key}`}
-        className="px-6 py-3 hover:bg-pink-50 flex-1"
-        onClick={() => setMobileOpen(false)}
-      >
-        {key.charAt(0).toUpperCase() + key.slice(1)}
-      </Link>
+          {Object.entries(subMenus).map(([key, items]) => (
+            <div key={key}>
+              <div className="flex justify-between items-center border-b">
+                <Link
+                  to={`/${key}`}
+                  className="px-6 py-3 hover:bg-pink-50 flex-1"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                </Link>
 
-      {/* Right: Toggle submenu */}
-      <button
-        className="px-6 py-3 hover:bg-pink-50"
-        onClick={() => setOpenMenu(openMenu === key ? "" : key)}
-      >
-        <FiChevronDown
-          className={`transform transition-transform ${
-            openMenu === key ? "rotate-180" : ""
-          }`}
-        />
-      </button>
-    </div>
+                <button
+                  className="px-6 py-3 hover:bg-pink-50"
+                  onClick={() => setOpenMenu(openMenu === key ? "" : key)}
+                >
+                  <FiChevronDown
+                    className={`transform transition-transform ${
+                      openMenu === key ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+              </div>
 
-    {/* Submenu items */}
-    {openMenu === key && (
-      <div className="pl-8 border-l border-r border-b w-full bg-white">
-        {items.map((item) => (
+              {openMenu === key && (
+                <div className="pl-8 border-l border-r border-b w-full bg-white">
+                  {items.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-4 py-2 hover:bg-pink-50 border-b last:border-b-0"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+
+          {/* About Link */}
           <Link
-            key={item.name}
-            to={item.path}
+            to="/about"
+            className="block px-6 py-3 hover:bg-pink-50"
             onClick={() => setMobileOpen(false)}
-            className="block px-4 py-2 hover:bg-pink-50 border-b last:border-b-0"
           >
-            {item.name}
+            Peek Inside
           </Link>
-        ))}
-      </div>
-    )}
-  </div>
-))}
 
-
+          {/* Sale */}
           <div
             onClick={handleSaleClick}
-            className="block px-6 py-3 hover:bg-pink-50 flex items-center space-between cursor-pointer"
+            className="px-6 py-3 hover:bg-pink-50 flex items-center space-between cursor-pointer"
           >
             <span>Sale</span>
             <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
