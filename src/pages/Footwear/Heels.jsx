@@ -1,0 +1,57 @@
+import React, { useState } from "react";
+import Heels1 from "../../assets/Footwear/Heels/heels1.jpg";
+import Heels2 from "../../assets/Footwear/Heels/heels2.jpg";
+import Heels3 from "../../assets/Footwear/Heels/heels3.jpg";
+import { FiHeart } from "react-icons/fi";
+
+const Heels = () => {
+  const [likedIndex, setLikedIndex] = useState(null);
+
+  const heels = [
+    { title: "Elegant Heels", price: 109.99, rating: 4.8, img: Heels1 },
+    { title: "Party Heels", price: 129.99, rating: 4.7, img: Heels2 },
+    { title: "Casual Heels", price: 99.99, rating: 4.6, img: Heels3 },
+    { title: "Elegant Heels", price: 109.99, rating: 4.8, img: Heels1 },
+    { title: "Party Heels", price: 129.99, rating: 4.7, img: Heels2 },
+    { title: "Casual Heels", price: 99.99, rating: 4.6, img: Heels3 },
+    { title: "Elegant Heels", price: 109.99, rating: 4.8, img: Heels1 },
+    { title: "Party Heels", price: 129.99, rating: 4.7, img: Heels2 },
+    { title: "Casual Heels", price: 99.99, rating: 4.6, img: Heels3 },
+  ];
+
+  return (
+    <div className="pt-24 bg-white min-h-screen">
+      <section className="bg-gradient-to-r from-pink-50 to-white py-12">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h1 className="text-4xl font-bold text-pink-600">Heels Collection</h1>
+          <p className="mt-2 text-gray-600">Stylish heels for parties and special occasions.</p>
+        </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {heels.map((item, index) => (
+          <div key={index} className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition">
+            <div className="relative">
+              <img src={item.img} alt={item.title} className="w-full h-64 object-cover" />
+              <button
+                className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
+                  likedIndex === index ? "bg-pink-100" : "bg-white hover:bg-gray-100"
+                }`}
+                onClick={() => setLikedIndex(index)}
+              >
+                <FiHeart className={`text-lg ${likedIndex === index ? "text-pink-500" : "text-gray-700"}`} />
+              </button>
+            </div>
+            <div className="p-4">
+              <h3 className="text-lg font-semibold">{item.title}</h3>
+              <p className="text-pink-600 font-bold mt-2">Rs. {item.price}</p>
+              <p className="text-sm text-gray-500 mt-1">⭐ {item.rating} / 5</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Heels;
