@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import AccessoriesImg from "../assets/accessories.jpg";
-import JewelryImg from "../assets/jewelry.jpg";
-import HandbagImg from "../assets/handbag.jpg";
-import HatsImg from "../assets/hats.jpg";
-import SunGlassImg from "../assets/sunglass.jpg";
+import AccessoriesImg from "../assets/accessories.webp";
+import JewelryImg from "../assets/jewelry.webp";
+import HandbagImg from "../assets/handbag.webp";
+import HatsImg from "../assets/hats.webp";
+import SunGlassImg from "../assets/sunglass.webp";
 
 import Jewelry from "./Accessories/Jewelry";
 import Handbag from "./Accessories/Handbag";

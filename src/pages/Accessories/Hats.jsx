@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Hat1 from "../../assets/Accessories/Hats/hat1.jpg";
-import Hat2 from "../../assets/Accessories/Hats/hat2.jpg";
-import Hat3 from "../../assets/Accessories/Hats/hat3.jpg";
+import Hat1 from "../../assets/Accessories/Hats/hat1.webp";
+import Hat2 from "../../assets/Accessories/Hats/hat2.webp";
+import Hat3 from "../../assets/Accessories/Hats/hat3.webp";
 import { FiHeart } from "react-icons/fi";
 
 const Hats = () => {

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Mini1 from "../../assets/Women/MiniDress/mini1.jpg";
-import Mini2 from "../../assets/Women/MiniDress/mini2.jpg";
-import Mini3 from "../../assets/Women/MiniDress/mini3.jpg";
+import Mini1 from "../../assets/Women/MiniDress/mini1.webp";
+import Mini2 from "../../assets/Women/MiniDress/mini2.webp";
+import Mini3 from "../../assets/Women/MiniDress/mini3.webp";
 import { FiHeart } from "react-icons/fi";
 
 const MiniDress = () => {

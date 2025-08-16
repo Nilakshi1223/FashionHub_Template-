@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Dress1 from "../../assets/Women/Dress/dress.jpg";
-import Dress2 from "../../assets/Women/Dress/dress2.jpg";
-import Dress3 from "../../assets/Women/Dress/dress3.jpg";
+import Dress1 from "../../assets/Women/Dress/dress.webp";
+import Dress2 from "../../assets/Women/Dress/dress2.webp";
+import Dress3 from "../../assets/Women/Dress/dress3.webp";
 import { FiHeart } from "react-icons/fi";
 
 const Dresses = () => {

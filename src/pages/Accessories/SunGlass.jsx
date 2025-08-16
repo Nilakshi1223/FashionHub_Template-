@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Glass1 from "../../assets/Accessories/SunGlass/glass1.jpg";
-import Glass2 from "../../assets/Accessories/SunGlass/glass2.jpg";
-import Glass3 from "../../assets/Accessories/SunGlass/glass3.jpg";
+import Glass1 from "../../assets/Accessories/SunGlass/glass1.webp";
+import Glass2 from "../../assets/Accessories/SunGlass/glass2.webp";
+import Glass3 from "../../assets/Accessories/SunGlass/glass3.webp";
 import { FiHeart } from "react-icons/fi";
 
 const SunGlass = () => {

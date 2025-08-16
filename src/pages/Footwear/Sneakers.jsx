@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Sneakers1 from "../../assets/Footwear/Sneakers/sneakers1.jpg";
-import Sneakers2 from "../../assets/Footwear/Sneakers/sneakers2.jpg";
-import Sneakers3 from "../../assets/Footwear/Sneakers/sneakers3.jpg";
+import Sneakers1 from "../../assets/Footwear/Sneakers/sneakers1.webp";
+import Sneakers2 from "../../assets/Footwear/Sneakers/sneakers2.webp";
+import Sneakers3 from "../../assets/Footwear/Sneakers/sneakers3.webp";
 import { FiHeart } from "react-icons/fi";
 
 const Sneakers = () => {

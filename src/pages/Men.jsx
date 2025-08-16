@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import MenImg from "../assets/men.jpg";
-import ShirtImg from "../assets/shirt.jpg";
-import TShirtImg from "../assets/tshirt.jpg";
-import JeansImg from "../assets/jeans.jpg";
-import JacketImg from "../assets/jacket.jpg";
+import MenImg from "../assets/men.webp";
+import ShirtImg from "../assets/shirt.webp";
+import TShirtImg from "../assets/tshirt.webp";
+import JeansImg from "../assets/jeans.webp";
+import JacketImg from "../assets/jacket.webp";
 
 import Shirts from "./Men/Shirts";
 import TShirts from "./Men/TShirts";

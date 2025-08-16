@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Bag1 from "../../assets/Accessories/Handbag/bag1.jpg";
-import Bag2 from "../../assets/Accessories/Handbag/bag2.jpg";
-import Bag3 from "../../assets/Accessories/Handbag/bag3.jpg";
+import Bag1 from "../../assets/Accessories/Handbag/bag1.webp";
+import Bag2 from "../../assets/Accessories/Handbag/bag2.webp";
+import Bag3 from "../../assets/Accessories/Handbag/bag3.webp";
 import { FiHeart } from "react-icons/fi";
 
 const Handbag = () => {

@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import WomenImg from "../assets/women.jpg";
-import DressImg from "../assets/dress.jpg";
-import TopImg from "../assets/top.jpg";
-import SareeImg from "../assets/saree.jpg";
-import MiniDressImg from "../assets/minidress.jpg";
+import WomenImg from "../assets/women.webp";
+import DressImg from "../assets/dress.webp";
+import TopImg from "../assets/top.webp";
+import SareeImg from "../assets/saree.webp";
+import MiniDressImg from "../assets/minidress.webp";
 
 import Dresses from "./Women/Dresses";
 import Sarees from "./Women/Sarees";

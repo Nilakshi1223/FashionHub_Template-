@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Heels1 from "../../assets/Footwear/Heels/heels1.jpg";
-import Heels2 from "../../assets/Footwear/Heels/heels2.jpg";
-import Heels3 from "../../assets/Footwear/Heels/heels3.jpg";
+import Heels1 from "../../assets/Footwear/Heels/heels1.webp";
+import Heels2 from "../../assets/Footwear/Heels/heels2.webp";
+import Heels3 from "../../assets/Footwear/Heels/heels3.webp";
 import { FiHeart } from "react-icons/fi";
 
 const Heels = () => {

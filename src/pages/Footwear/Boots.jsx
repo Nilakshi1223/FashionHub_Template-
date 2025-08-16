@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Boots1 from "../../assets/Footwear/Boots/boots1.jpg";
-import Boots2 from "../../assets/Footwear/Boots/boots2.jpg";
-import Boots3 from "../../assets/Footwear/Boots/boots3.jpg";
+import Boots1 from "../../assets/Footwear/Boots/boots1.webp";
+import Boots2 from "../../assets/Footwear/Boots/boots2.webp";
+import Boots3 from "../../assets/Footwear/Boots/boots3.webp";
 import { FiHeart } from "react-icons/fi";
 
 const Boots = () => {

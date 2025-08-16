@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import AboutImage from "../assets/about.jpg"; 
+import AboutImage from "../assets/about.webp"; 
 import { FaQuoteLeft, FaStar } from "react-icons/fa";
 
 const About = () => {

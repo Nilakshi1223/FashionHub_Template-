@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import ShoesImg from "../assets/shoes.jpg";
-import SneakersImg from "../assets/sneakers.jpg";
-import BootsImg from "../assets/boots.jpg";
-import SandalsImg from "../assets/sandals.jpg";
-import HeelsImg from "../assets/heels.jpg";
+import ShoesImg from "../assets/shoes.webp";
+import SneakersImg from "../assets/sneakers.webp";
+import BootsImg from "../assets/boots.webp";
+import SandalsImg from "../assets/sandals.webp";
+import HeelsImg from "../assets/heels.webp";
 
 import Sneakers from "./Footwear/Sneakers";
 import Boots from "./Footwear/Boots";

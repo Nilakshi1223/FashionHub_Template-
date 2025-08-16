@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import HeroImage from "../assets/hero-image.jpg";
-import WomenImg from "../assets/women.jpg";
-import MenImg from "../assets/men.jpg";
-import ShoesImg from "../assets/shoes.jpg";
-import AccessoriesImg from "../assets/accessories.jpg";
-import DressImg from "../assets/dress.jpg";
-import JacketImg from "../assets/jacket.jpg";
-import SneakersImg from "../assets/sneakers.jpg";
-import BagImg from "../assets/bag.jpg";
+import HeroImage from "../assets/hero-image.webp";
+import WomenImg from "../assets/women.webp";
+import MenImg from "../assets/men.webp";
+import ShoesImg from "../assets/shoes.webp";
+import AccessoriesImg from "../assets/accessories.webp";
+import DressImg from "../assets/dress.webp";
+import JacketImg from "../assets/jacket.webp";
+import SneakersImg from "../assets/sneakers.webp";
+import BagImg from "../assets/bag.webp";
 import { FiHeart } from "react-icons/fi";
 
 const Home = () => {

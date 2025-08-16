@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Top1 from "../../assets/Women/Tops/top1.jpg";
-import Top2 from "../../assets/Women/Tops/top2.jpg";
-import Top3 from "../../assets/Women/Tops/top3.jpg";
+import Top1 from "../../assets/Women/Tops/top1.webp";
+import Top2 from "../../assets/Women/Tops/top2.webp";
+import Top3 from "../../assets/Women/Tops/top3.webp";
 import { FiHeart } from "react-icons/fi";
 
 const Tops = () => {

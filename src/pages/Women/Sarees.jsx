@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Saree1 from "../../assets/Women/Saree/saree1.jpg";
-import Saree2 from "../../assets/Women/Saree/saree2.jpg";
+import Saree1 from "../../assets/Women/Saree/saree1.webp";
+import Saree2 from "../../assets/Women/Saree/saree2.webp";
 import Saree3 from "../../assets/Women/Saree/saree3.jpg";
 import { FiHeart } from "react-icons/fi";
 

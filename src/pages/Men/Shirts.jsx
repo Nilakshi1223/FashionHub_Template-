@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Shirt1 from "../../assets/Men/Shirts/shirt1.jpg";
-import Shirt2 from "../../assets/Men/Shirts/shirt2.jpg";
-import Shirt3 from "../../assets/Men/Shirts/shirt3.jpg";
+import Shirt1 from "../../assets/Men/Shirts/shirt1.webp";
+import Shirt2 from "../../assets/Men/Shirts/shirt2.webp";
+import Shirt3 from "../../assets/Men/Shirts/shirt3.webp";
 import { FiHeart } from "react-icons/fi";
 
 const Shirts = () => {

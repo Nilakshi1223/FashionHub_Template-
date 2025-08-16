@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Jewelry1 from "../../assets/Accessories/Jewelry/jewelry1.jpg";
-import Jewelry2 from "../../assets/Accessories/Jewelry/jewelry2.jpg";
-import Jewelry3 from "../../assets/Accessories/Jewelry/jewelry3.jpg";
+import Jewelry1 from "../../assets/Accessories/Jewelry/jewelry1.webp";
+import Jewelry2 from "../../assets/Accessories/Jewelry/jewelry2.webp";
+import Jewelry3 from "../../assets/Accessories/Jewelry/jewelry3.webp";
 import { FiHeart } from "react-icons/fi";
 
 const Jewelry = () => {

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Sandals1 from "../../assets/Footwear/Sandals/sandals1.jpg";
-import Sandals2 from "../../assets/Footwear/Sandals/sandals2.jpg";
-import Sandals3 from "../../assets/Footwear/Sandals/sandals3.jpg";
+import Sandals1 from "../../assets/Footwear/Sandals/sandals1.webp";
+import Sandals2 from "../../assets/Footwear/Sandals/sandals2.webp";
+import Sandals3 from "../../assets/Footwear/Sandals/sandals3.webp";
 import { FiHeart } from "react-icons/fi";
 
 const Sandals = () => {
