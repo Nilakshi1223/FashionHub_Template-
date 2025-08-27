@@ -12,15 +12,15 @@ const Dresses = () => {
     { title: "Elegant Summer Dress", price: 129.99, rating: 4.8, img: Dress1 },
     { title: "Floral Maxi Dress", price: 149.99, rating: 4.7, img: Dress2 },
     { title: "Casual Mini Dress", price: 99.99, rating: 4.6, img: Dress3 },
+    { title: "Elegant Summer Dress", price: 129.99, rating: 4.8, img: Dress2 },
+    { title: "Floral Maxi Dress", price: 149.99, rating: 4.7, img: Dress3 },
+    { title: "Casual Mini Dress", price: 99.99, rating: 4.6, img: Dress1 },
     { title: "Elegant Summer Dress", price: 129.99, rating: 4.8, img: Dress1 },
     { title: "Floral Maxi Dress", price: 149.99, rating: 4.7, img: Dress2 },
     { title: "Casual Mini Dress", price: 99.99, rating: 4.6, img: Dress3 },
-    { title: "Elegant Summer Dress", price: 129.99, rating: 4.8, img: Dress1 },
-    { title: "Floral Maxi Dress", price: 149.99, rating: 4.7, img: Dress2 },
-    { title: "Casual Mini Dress", price: 99.99, rating: 4.6, img: Dress3 },
-    { title: "Elegant Summer Dress", price: 129.99, rating: 4.8, img: Dress1 },
-    { title: "Floral Maxi Dress", price: 149.99, rating: 4.7, img: Dress2 },
-    { title: "Casual Mini Dress", price: 99.99, rating: 4.6, img: Dress3 },
+    { title: "Elegant Summer Dress", price: 129.99, rating: 4.8, img: Dress2 },
+    { title: "Floral Maxi Dress", price: 149.99, rating: 4.7, img: Dress3 },
+    { title: "Casual Mini Dress", price: 99.99, rating: 4.6, img: Dress1 },
   ];
 
   return (
@@ -79,6 +79,66 @@ const Dresses = () => {
         ))}
       </div>
     </div>
+
+    // <div className="pt-16 bg-gray-950 min-h-screen">
+    //   {/* Header */}
+    //   <motion.section
+    //     className="bg-gradient-to-r from-gray-950 via-gray-900 to-pink-950 py-12"
+    //     initial={{ opacity: 0, y: 50 }}
+    //     animate={{ opacity: 1, y: 0 }}
+    //     transition={{ duration: 0.8 }}
+    //   >
+    //     <div className="max-w-7xl mx-auto px-6 text-center">
+    //       <h1 className="text-4xl font-bold text-pink-400">Dresses Collection</h1>
+    //       <p className="mt-2 text-gray-300">
+    //         Discover our latest collection of elegant and trendy dresses.
+    //       </p>
+    //     </div>
+    //   </motion.section>
+
+    //   {/* Product Grid */}
+    //   <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    //     {dresses.map((dress, index) => (
+    //       <motion.div
+    //         key={index}
+    //         className="bg-gray-900 shadow-md rounded-xl overflow-hidden cursor-pointer"
+    //         whileHover={{ scale: 1.03 }}
+    //         initial={{ opacity: 0, y: 30 }}
+    //         animate={{ opacity: 1, y: 0 }}
+    //         transition={{ delay: index * 0.1, duration: 0.5 }}
+    //       >
+    //         <div className="relative">
+    //           <img
+    //             src={dress.img}
+    //             alt={dress.title}
+    //             className="w-full h-64 object-cover"
+    //           />
+    //           <button
+    //         className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
+    //           likedIndex === index
+    //             ? "bg-pink-600"
+    //             : "bg-gray-800 hover:bg-gray-700"
+    //         }`}
+    //         onClick={() => setLikedIndex(likedIndex === index ? null : index)}
+    //       >
+    //         <FiHeart
+    //           className={`text-lg ${
+    //             likedIndex === index ? "text-white" : "text-pink-400"
+    //           }`}
+    //         />
+    //       </button>
+    //         </div>
+    //         <div className="p-4">
+    //           <h3 className="text-lg font-semibold text-gray-100">{dress.title}</h3>
+    //           <p className="text-pink-400 font-bold mt-2">Rs. {dress.price}</p>
+    //           <p className="text-sm text-gray-400 mt-1">⭐ {dress.rating} / 5</p>
+    //         </div>
+    //       </motion.div>
+    //     ))}
+    //   </div>
+    // </div>
+
+
   );
 };
 

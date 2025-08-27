@@ -54,190 +54,400 @@ const Navbar = () => {
     ],
   };
 
-  return (
-    <nav className="w-full bg-white shadow-sm fixed top-0 z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-        {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2">
-          <div className="bg-pink-500 p-2 rounded-md">
-            <span className="text-white font-bold text-xl">📷</span>
+return (
+  <nav className="w-full bg-white shadow-sm fixed top-0 z-50">
+    <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      {/* Logo */}
+      <Link to="/" className="flex items-center space-x-2">
+        <div className="bg-pink-500 p-2 rounded-md">
+          <span className="text-white font-bold text-xl">📷</span>
+        </div>
+        <span className="text-2xl font-bold text-pink-500">FashionHub</span>
+      </Link>
+
+      {/* Desktop Menu */}
+      <div className="hidden md:flex space-x-6 text-gray-700 font-medium relative">
+        <Link to="/" className="hover:text-pink-500">Home</Link>
+
+        {/* Women Dropdown */}
+        <div className="group relative">
+          <Link to="/women" className="hover:text-pink-500 flex items-center">
+            Ladies <FiChevronDown className="ml-1" />
+          </Link>
+          <div className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-0 rounded-lg border w-56">
+            {subMenus.women.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className="block px-4 py-2 hover:bg-pink-50 border-b last:border-b-0"
+              >
+                {item.name}
+              </Link>
+            ))}
           </div>
-          <span className="text-2xl font-bold text-pink-500">FashionHub</span>
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 text-gray-700 font-medium relative">
-          <Link to="/" className="hover:text-pink-500">Home</Link>
-
-          {/* Women Dropdown */}
-          <div className="group relative">
-            <Link to="/women" className="hover:text-pink-500 flex items-center">
-              Women <FiChevronDown className="ml-1" />
-            </Link>
-            <div className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-0 rounded-lg border w-56">
-              {subMenus.women.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className="block px-4 py-2 hover:bg-pink-50 border-b last:border-b-0"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Men Dropdown */}
-          <div className="group relative">
-            <Link to="/men" className="hover:text-pink-500 flex items-center">
-              Men <FiChevronDown className="ml-1" />
-            </Link>
-            <div className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-0 rounded-lg border w-56">
-              {subMenus.men.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className="block px-4 py-2 hover:bg-pink-50 border-b last:border-b-0"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Footwear Dropdown */}
-          <div className="group relative">
-            <Link to="/footwear" className="hover:text-pink-500 flex items-center">
-              Footwear <FiChevronDown className="ml-1" />
-            </Link>
-            <div className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-0 rounded-lg border w-56">
-              {subMenus.footwear.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className="block px-4 py-2 hover:bg-pink-50 border-b last:border-b-0"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Accessories Dropdown */}
-          <div className="group relative">
-            <Link to="/accessories" className="hover:text-pink-500 flex items-center">
-              Accessories <FiChevronDown className="ml-1" />
-            </Link>
-            <div className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-0 rounded-lg border w-56">
-              {subMenus.accessories.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className="block px-4 py-2 hover:bg-pink-50 border-b last:border-b-0"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* About Link */}
-          <Link to="/about" className="hover:text-pink-500">Peek Inside</Link>
-
-          {/* Sale Button */}
-          <button
-            onClick={handleSaleClick}
-            className="flex items-center space-x-1 hover:text-pink-500"
-          >
-            <span>Sale</span>
-            <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
-              Hot
-            </span>
-          </button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <button onClick={() => setMobileOpen(!mobileOpen)}>
-            {mobileOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-          </button>
+        {/* Men Dropdown */}
+        <div className="group relative">
+          <Link to="/men" className="hover:text-pink-500 flex items-center">
+            Gents <FiChevronDown className="ml-1" />
+          </Link>
+          <div className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-0 rounded-lg border w-56">
+            {subMenus.men.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className="block px-4 py-2 hover:bg-pink-50 border-b last:border-b-0"
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
         </div>
+
+        {/* Footwear Dropdown */}
+        <div className="group relative">
+          <Link to="/footwear" className="hover:text-pink-500 flex items-center">
+            Footwear <FiChevronDown className="ml-1" />
+          </Link>
+          <div className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-0 rounded-lg border w-56">
+            {subMenus.footwear.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className="block px-4 py-2 hover:bg-pink-50 border-b last:border-b-0"
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Accessories Dropdown */}
+        <div className="group relative">
+          <Link to="/accessories" className="hover:text-pink-500 flex items-center">
+            Accessories <FiChevronDown className="ml-1" />
+          </Link>
+          <div className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-0 rounded-lg border w-56">
+            {subMenus.accessories.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className="block px-4 py-2 hover:bg-pink-50 border-b last:border-b-0"
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* About Link */}
+        <Link to="/about" className="hover:text-pink-500">About Us</Link> 
+
+        {/* Contact Link (NEW) */}
+        <Link to="/contact" className="hover:text-pink-500">Contact</Link> 
+
+        {/* Sale Button */}
+        <button
+          onClick={handleSaleClick}
+          className="flex items-center space-x-1 hover:text-pink-500"
+        >
+          <span>Sale</span>
+          <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+            Hot
+          </span>
+        </button>
       </div>
 
-      {/* Mobile Menu */}
-      {mobileOpen && (
-        <div className="md:hidden bg-white shadow-lg">
-          <Link
-            to="/"
-            className="block px-6 py-3 hover:bg-pink-50"
-            onClick={() => setMobileOpen(false)}
-          >
-            Home
-          </Link>
+      {/* Mobile Menu Button */}
+      <div className="md:hidden">
+        <button onClick={() => setMobileOpen(!mobileOpen)}>
+          {mobileOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+        </button>
+      </div>
+    </div>
 
-          {/* Mobile Submenus */}
-          {Object.entries(subMenus).map(([key, items]) => (
-            <div key={key}>
-              <div className="flex justify-between items-center border-b">
-                <Link
-                  to={`/${key}`}
-                  className="px-6 py-3 hover:bg-pink-50 flex-1"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {key.charAt(0).toUpperCase() + key.slice(1)}
-                </Link>
+    {/* Mobile Menu */}
+    {mobileOpen && (
+      <div className="md:hidden bg-white shadow-lg">
+        <Link
+          to="/"
+          className="block px-6 py-3 hover:bg-pink-50"
+          onClick={() => setMobileOpen(false)}
+        >
+          Home
+        </Link>
 
-                <button
-                  className="px-6 py-3 hover:bg-pink-50"
-                  onClick={() => setOpenMenu(openMenu === key ? "" : key)}
-                >
-                  <FiChevronDown
-                    className={`transform transition-transform ${
-                      openMenu === key ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-              </div>
+        {/* Mobile Submenus */}
+        {Object.entries(subMenus).map(([key, items]) => (
+          <div key={key}>
+            <div className="flex justify-between items-center border-b">
+              <Link
+                to={`/${key}`}
+                className="px-6 py-3 hover:bg-pink-50 flex-1"
+                onClick={() => setMobileOpen(false)}
+              >
+                {key.charAt(0).toUpperCase() + key.slice(1)}
+              </Link>
 
-              {openMenu === key && (
-                <div className="pl-8 border-l border-r border-b w-full bg-white">
-                  {items.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.path}
-                      onClick={() => setMobileOpen(false)}
-                      className="block px-4 py-2 hover:bg-pink-50 border-b last:border-b-0"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
+              <button
+                className="px-6 py-3 hover:bg-pink-50"
+                onClick={() => setOpenMenu(openMenu === key ? "" : key)}
+              >
+                <FiChevronDown
+                  className={`transform transition-transform ${
+                    openMenu === key ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
             </div>
-          ))}
 
-          {/* About Link */}
-          <Link
-            to="/about"
-            className="block px-6 py-3 hover:bg-pink-50"
-            onClick={() => setMobileOpen(false)}
-          >
-            Peek Inside
-          </Link>
-
-          {/* Sale */}
-          <div
-            onClick={handleSaleClick}
-            className="px-6 py-3 hover:bg-pink-50 flex items-center space-between cursor-pointer"
-          >
-            <span>Sale</span>
-            <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
-              Hot
-            </span>
+            {openMenu === key && (
+              <div className="pl-8 border-l border-r border-b w-full bg-white">
+                {items.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.path}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-4 py-2 hover:bg-pink-50 border-b last:border-b-0"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
+        ))}
+
+        {/* About Link */}
+        <Link
+          to="/about"
+          className="block px-6 py-3 hover:bg-pink-50"
+          onClick={() => setMobileOpen(false)}
+        >
+          About Us
+        </Link>
+
+        {/* Contact Link (NEW) */}
+        <Link
+          to="/contact"
+          className="block px-6 py-3 hover:bg-pink-50"
+          onClick={() => setMobileOpen(false)}
+        >
+          Contact
+        </Link>
+
+        {/* Sale */}
+        <div
+          onClick={handleSaleClick}
+          className="px-6 py-3 hover:bg-pink-50 flex items-center space-between cursor-pointer"
+        >
+          <span>Sale</span>
+          <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+            Hot
+          </span>
         </div>
-      )}
-    </nav>
+      </div>
+    )}
+  </nav>
+
+
+
+//     <nav className="w-full bg-gradient-to-r from-gray-950 via-pink-950 to-gray-950 shadow-md fixed top-0 z-50">
+//   <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+//     {/* Logo */}
+//     <Link to="/" className="flex items-center space-x-2">
+//       <div className="bg-pink-600 p-2 rounded-md">
+//         <span className="text-white font-bold text-xl">📷</span>
+//       </div>
+//       <span className="text-2xl font-bold text-pink-400">FashionHub</span>
+//     </Link>
+
+//     {/* Desktop Menu */}
+//     <div className="hidden md:flex space-x-6 text-gray-200 font-medium relative">
+//       <Link to="/" className="hover:text-pink-400">Home</Link>
+
+//       {/* Women Dropdown */}
+//       <div className="group relative">
+//         <Link to="/women" className="hover:text-pink-400 flex items-center">
+//           Ladies <FiChevronDown className="ml-1" />
+//         </Link>
+//         <div className="absolute left-0 hidden group-hover:block bg-gray-900 shadow-lg mt-0 rounded-lg border border-gray-700 w-56">
+//           {subMenus.women.map((item) => (
+//             <Link
+//               key={item.name}
+//               to={item.path}
+//               className="block px-4 py-2 hover:bg-gray-800 border-b border-gray-700 last:border-b-0 text-gray-200"
+//             >
+//               {item.name}
+//             </Link>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* Men Dropdown */}
+//       <div className="group relative">
+//         <Link to="/men" className="hover:text-pink-400 flex items-center">
+//           Gents <FiChevronDown className="ml-1" />
+//         </Link>
+//         <div className="absolute left-0 hidden group-hover:block bg-gray-900 shadow-lg mt-0 rounded-lg border border-gray-700 w-56">
+//           {subMenus.men.map((item) => (
+//             <Link
+//               key={item.name}
+//               to={item.path}
+//               className="block px-4 py-2 hover:bg-gray-800 border-b border-gray-700 last:border-b-0 text-gray-200"
+//             >
+//               {item.name}
+//             </Link>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* Footwear Dropdown */}
+//       <div className="group relative">
+//         <Link to="/footwear" className="hover:text-pink-400 flex items-center">
+//           Footwear <FiChevronDown className="ml-1" />
+//         </Link>
+//         <div className="absolute left-0 hidden group-hover:block bg-gray-900 shadow-lg mt-0 rounded-lg border border-gray-700 w-56">
+//           {subMenus.footwear.map((item) => (
+//             <Link
+//               key={item.name}
+//               to={item.path}
+//               className="block px-4 py-2 hover:bg-gray-800 border-b border-gray-700 last:border-b-0 text-gray-200"
+//             >
+//               {item.name}
+//             </Link>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* Accessories Dropdown */}
+//       <div className="group relative">
+//         <Link to="/accessories" className="hover:text-pink-400 flex items-center">
+//           Accessories <FiChevronDown className="ml-1" />
+//         </Link>
+//         <div className="absolute left-0 hidden group-hover:block bg-gray-900 shadow-lg mt-0 rounded-lg border border-gray-700 w-56">
+//           {subMenus.accessories.map((item) => (
+//             <Link
+//               key={item.name}
+//               to={item.path}
+//               className="block px-4 py-2 hover:bg-gray-800 border-b border-gray-700 last:border-b-0 text-gray-200"
+//             >
+//               {item.name}
+//             </Link>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* About Link */}
+//       <Link to="/about" className="hover:text-pink-400">About Us</Link>
+//      {/* Contact Link (NEW) */}
+//        <Link to="/contact" className="hover:text-pink-500">Contact</Link> 
+
+//       {/* Sale Button */}
+//       <button
+//         onClick={handleSaleClick}
+//         className="flex items-center space-x-1 hover:text-pink-400"
+//       >
+//         <span>Sale</span>
+//         <span className="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
+//           Hot
+//         </span>
+//       </button>
+//     </div>
+
+//     {/* Mobile Menu Button */}
+//     <div className="md:hidden text-gray-200">
+//       <button onClick={() => setMobileOpen(!mobileOpen)}>
+//         {mobileOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+//       </button>
+//     </div>
+//   </div>
+
+//   {/* Mobile Menu */}
+//   {mobileOpen && (
+//     <div className="md:hidden bg-gray-900 shadow-lg text-gray-200">
+//       <Link
+//         to="/"
+//         className="block px-6 py-3 hover:bg-gray-800"
+//         onClick={() => setMobileOpen(false)}
+//       >
+//         Home
+//       </Link>
+
+//       {/* Mobile Submenus */}
+//       {Object.entries(subMenus).map(([key, items]) => (
+//         <div key={key}>
+//           <div className="flex justify-between items-center border-b border-gray-700">
+//             <Link
+//               to={`/${key}`}
+//               className="px-6 py-3 hover:bg-gray-800 flex-1"
+//               onClick={() => setMobileOpen(false)}
+//             >
+//               {key.charAt(0).toUpperCase() + key.slice(1)}
+//             </Link>
+
+//             <button
+//               className="px-6 py-3 hover:bg-gray-800"
+//               onClick={() => setOpenMenu(openMenu === key ? "" : key)}
+//             >
+//               <FiChevronDown
+//                 className={`transform transition-transform ${
+//                   openMenu === key ? "rotate-180" : ""
+//                 }`}
+//               />
+//             </button>
+//           </div>
+
+//           {openMenu === key && (
+//             <div className="pl-8 border-l border-r border-b border-gray-700 w-full bg-gray-950">
+//               {items.map((item) => (
+//                 <Link
+//                   key={item.name}
+//                   to={item.path}
+//                   onClick={() => setMobileOpen(false)}
+//                   className="block px-4 py-2 hover:bg-gray-800 border-b border-gray-700 last:border-b-0 text-gray-200"
+//                 >
+//                   {item.name}
+//                 </Link>
+//               ))}
+//             </div>
+//           )}
+//         </div>
+//       ))}
+
+//       {/* About Link */}
+//       <Link
+//         to="/about"
+//         className="block px-6 py-3 hover:bg-gray-800"
+//         onClick={() => setMobileOpen(false)}
+//       >
+//         About Us
+//       </Link>
+
+//{/* Contact Link (NEW) */}
+//        <Link
+//          to="/contact"
+//          className="block px-6 py-3 hover:bg-pink-50"
+//          onClick={() => setMobileOpen(false)}
+//        >
+//          Contact
+//        </Link>
+
+//       {/* Sale */}
+//       <div
+//         onClick={handleSaleClick}
+//         className="px-6 py-3 hover:bg-gray-800 flex items-center space-between cursor-pointer"
+//       >
+//         <span>Sale</span>
+//         <span className="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
+//           Hot
+//         </span>
+//       </div>
+//     </div>
+//   )}
+// </nav>
+
   );
 };
 

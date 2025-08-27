@@ -66,6 +66,54 @@ const Sneakers = () => {
         ))}
       </div>
     </div>
+
+    // <div className="pt-16 bg-gray-950 min-h-screen">
+    //   {/* Header */}
+    //   <motion.section
+    //     className="bg-gradient-to-r from-gray-950 via-gray-900 to-pink-950 py-12"
+    //     initial={{ opacity: 0, y: 30 }}
+    //     animate={{ opacity: 1, y: 0 }}
+    //     transition={{ duration: 0.8 }}
+    //   >
+    //     <div className="max-w-7xl mx-auto px-6 text-center">
+    //       <h1 className="text-4xl font-bold text-orange-400">Sneakers Collection</h1>
+    //       <p className="mt-2 text-gray-300">Discover our latest trendy sneakers.</p>
+    //     </div>
+    //   </motion.section>
+
+    //   {/* Product Grid */}
+    //   <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    //     {sneakers.map((item, index) => (
+    //       <motion.div
+    //         key={index}
+    //         className="bg-gray-900 shadow-md rounded-xl overflow-hidden hover:shadow-lg transition"
+    //         initial={{ opacity: 0, y: 20 }}
+    //         animate={{ opacity: 1, y: 0 }}
+    //         transition={{ delay: index * 0.1, duration: 0.5 }}
+    //         whileHover={{ scale: 1.03 }}
+    //       >
+    //         <div className="relative">
+    //           <img src={item.img} alt={item.title} className="w-full h-64 object-cover" />
+    //           <button
+    //             className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
+    //           likedIndex === index
+    //             ? "bg-orange-600"
+    //             : "bg-gray-800 hover:bg-gray-700"
+    //         }`}
+    //             onClick={() => setLikedIndex(index)}
+    //           >
+    //             <FiHeart className={`text-lg ${likedIndex === index ? "text-white" : "text-orange-400"}`} />
+    //           </button>
+    //         </div>
+    //         <div className="p-4">
+    //           <h3 className="text-lg font-semibold text-gray-100">{item.title}</h3>
+    //           <p className="text-orange-400 font-bold mt-2">Rs. {item.price}</p>
+    //           <p className="text-sm text-gray-400 mt-1">⭐ {item.rating} / 5</p>
+    //         </div>
+    //       </motion.div>
+    //     ))}
+    //   </div>
+    // </div>
   );
 };
 

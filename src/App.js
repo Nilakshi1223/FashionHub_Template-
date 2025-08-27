@@ -6,6 +6,7 @@ import Men from "./pages/Men";
 import Footwear from "./pages/Footwear";
 import Accessories from "./pages/Accessories";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 import Dresses from "./pages/Women/Dresses";
 import Sarees from "./pages/Women/Sarees";
@@ -38,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
 
 
         <Route path="/women" element={<Women />} />
