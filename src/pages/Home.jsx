@@ -55,19 +55,7 @@ const Home = () => {
     return () => clearInterval(interval);
   }, [heroImages.length]);
 
-  const goToNext = () => {
-    setDirection(0);
-    setCurrentHeroIndex((prevIndex) => 
-      prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
-    );
-  };
 
-  const goToPrev = () => {
-    setDirection(1);
-    setCurrentHeroIndex((prevIndex) => 
-      prevIndex === 0 ? heroImages.length - 1 : prevIndex - 1
-    );
-  };
 
   // Variants for smooth slide animation
   const slideVariants = {
