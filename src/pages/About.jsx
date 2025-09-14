@@ -216,6 +216,103 @@ const About = () => {
 //   </section>
 // </div>
 
+
+
+// <div className="pt-12 bg-teal-900 text-white font-sans">
+//       {/* Hero Section */}
+//       <motion.section
+//         className="relative bg-gradient-to-br from-gray-800 via-teal-900 to-gray-800 overflow-hidden rounded-b-3xl"
+//         initial={{ opacity: 0, y: 50 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.8 }}
+//       >
+//         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-6 py-24 gap-10">
+//           <div className="md:w-1/2 space-y-6 text-center md:text-left">
+//             <h1 className="text-5xl md:text-6xl font-extrabold leading-tight">
+//               About <span className="text-teal-300">FashionHub</span>
+//             </h1>
+//             <p className="text-teal-200 text-lg">
+//               FashionHub is your ultimate destination for stylish and trendy clothing, accessories, and footwear. We bring you the latest collections for men, women, and kids, curated to elevate your style.
+//             </p>
+//             <p className="text-teal-200 text-lg">
+//               Our mission is to provide quality fashion at affordable prices while ensuring a seamless shopping experience.
+//             </p>
+//           </div>
+//           <div className="md:w-1/2 flex justify-center md:justify-end relative">
+//             <img
+//               src={AboutImage}
+//               alt="About FashionHub"
+//               className="rounded-3xl shadow-2xl w-full max-w-md object-cover transform hover:scale-105 transition-transform duration-500"
+//             />
+//             <div className="absolute top-4 left-4 bg-teal-700 bg-opacity-50 px-3 py-1 rounded-lg text-sm font-semibold">
+//               Who We Are
+//             </div>
+//           </div>
+//         </div>
+//       </motion.section>
+
+//       {/* Feedback Section */}
+//       <section className="py-20 bg-gradient-to-b from-gray-800 via-teal-900 to-gray-800">
+//         <div className="max-w-7xl mx-auto px-6 text-center">
+//           <motion.h2
+//             className="text-3xl md:text-4xl font-bold mb-6"
+//             initial={{ opacity: 0, y: 20 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 0.6 }}
+//           >
+//             Love Notes
+//           </motion.h2>
+//           <p className="text-teal-300 mb-10">Hear what our clients say about us</p>
+
+//           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+//             {feedbacks.map((fb, index) => (
+//               <motion.div
+//                 key={index}
+//                 className="bg-teal-900 rounded-2xl shadow-xl p-6 flex flex-col items-center relative border border-teal-700"
+//                 whileHover={{ scale: 1.05 }}
+//                 initial={{ opacity: 0, y: 20 }}
+//                 animate={{ opacity: 1, y: 0 }}
+//                 transition={{ delay: index * 0.2, duration: 0.5 }}
+//               >
+//                 <FaQuoteLeft className="text-teal-600 text-3xl absolute top-4 left-4" />
+                
+//                 <div className="w-24 h-24 rounded-full overflow-hidden mt-8 border-2 border-teal-600">
+//                   <img
+//                     src={fb.avatar}
+//                     alt={fb.name}
+//                     className="w-full h-full object-cover"
+//                   />
+//                 </div>
+
+//                 <p className="text-teal-200 text-sm mt-4">{fb.message}</p>
+//                 <h3 className="mt-4 font-semibold text-lg text-teal-300">{fb.name}</h3>
+
+//                 <div className="flex mt-2">
+//                   {Array.from({ length: 5 }).map((_, i) => (
+//                     <FaStar
+//                       key={i}
+//                       className={`${
+//                         i < fb.rating ? "text-yellow-400" : "text-teal-600"
+//                       }`}
+//                     />
+//                   ))}
+//                 </div>
+//               </motion.div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Mission Section */}
+//       <section className="py-20 bg-gradient-to-br from-gray-800 via-teal-900 to-gray-800 text-center px-6">
+//         <h2 className="text-3xl md:text-4xl font-bold text-teal-300 mb-6">Our Mission</h2>
+//         <p className="text-teal-200 max-w-3xl mx-auto text-lg">
+//           At FashionHub, our mission is to make fashion accessible to everyone. We strive to combine quality, style, and affordability, ensuring that our customers always look and feel their best.
+//         </p>
+//       </section>
+//     </div>
+
+
   );
 };
 

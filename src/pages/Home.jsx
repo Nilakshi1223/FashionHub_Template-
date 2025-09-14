@@ -458,6 +458,157 @@ const Home = () => {
 //   </section>
 // </>
 
+
+// <>
+//       {/* Hero Section */}
+//       <motion.section
+//         className="bg-gradient-to-r from-gray-900 via-teal-700 to-gray-900 relative overflow-hidden text-white"
+//         initial="hidden"
+//         whileInView="visible"
+//         viewport={{ once: true }}
+//         variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
+//       >
+//         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center px-6 py-16 gap-10">
+//           <motion.div variants={fadeInUp}>
+//             <span className="bg-teal-600 text-white text-sm font-medium px-3 py-1 rounded-full">New Collection 2025</span>
+//             <h1 className="text-5xl font-bold mt-4">Fashion That <span className="text-teal-400">Speaks</span> Your Style</h1>
+//             <p className="text-gray-300 mt-4 text-lg">
+//               Discover the latest trends in clothing, footwear, and accessories. Express your unique personality with our curated collection of fashion-forward pieces.
+//             </p>
+//           </motion.div>
+          
+//           <div className="flex justify-center md:justify-end relative">
+//             <div className="w-full max-w-md h-[32rem] mt-11 overflow-hidden rounded-2xl shadow-lg relative">
+//               <AnimatePresence custom={direction} initial={false}>
+//                 <motion.div
+//                   key={currentHeroIndex}
+//                   custom={direction}
+//                   variants={slideVariants}
+//                   initial="enter"
+//                   animate="center"
+//                   exit="exit"
+//                   transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.4 } }}
+//                   className="absolute w-full h-full"
+//                 >
+//                   <img 
+//                     src={heroImages[currentHeroIndex].src} 
+//                     alt={heroImages[currentHeroIndex].alt} 
+//                     className="w-full h-full object-cover" 
+//                   />
+//                 </motion.div>
+//               </AnimatePresence>
+//             </div>
+
+//             {/* Dots */}
+//             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+//               {heroImages.map((_, index) => (
+//                 <button
+//                   key={index}
+//                   onClick={() => {
+//                     setDirection(index > currentHeroIndex ? 0 : 1);
+//                     setCurrentHeroIndex(index);
+//                   }}
+//                   className={`w-2 h-2 rounded-full transition-all ${index === currentHeroIndex ? 'bg-teal-400 w-4' : 'bg-gray-500'}`}
+//                   aria-label={`Go to slide ${index + 1}`}
+//                 />
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       </motion.section>
+
+//       {/* Shop by Category */}
+//       <section className="py-16 bg-gradient-to-b from-gray-900 to-teal-700  -z-10">
+//         <div className="max-w-7xl mx-auto px-6 text-center">
+//           <motion.p className="text-gray-300 mt-2" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }}>
+//             Step into a world of curated elegance, where every collection elevates your unique style.
+//           </motion.p>
+
+//           <motion.div
+//             className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true, amount: 0.3 }}
+//           >
+//             {categories.map((cat, index) => (
+//               <motion.div
+//                 key={index}
+//                 variants={fadeInUp}
+//                 whileHover={cardHover}
+//                 className="relative rounded-xl overflow-hidden shadow-md group cursor-pointer"
+//               >
+//                 <Link to={cat.link}>
+//                   <div className="w-full h-80 overflow-hidden">
+//                     <img 
+//                       src={cat.img} 
+//                       alt={cat.title} 
+//                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+//                     />
+//                   </div>
+//                   <div className={`absolute inset-0 ${cat.overlay} flex flex-col justify-end p-4 text-white`}>
+//                     <h3 className="text-lg font-bold">{cat.title}</h3>
+//                     <p className="text-sm">{cat.subtitle}</p>
+//                   </div>
+//                 </Link>
+//               </motion.div>
+//             ))}
+//           </motion.div>
+//         </div>
+//       </section>
+
+//       {/* Featured Products */}
+//       <section id="featured-products" className="py-16 bg-gradient-to-r from-gray-900 via-teal-700 to-gray-900">
+//         <div className="max-w-7xl mx-auto px-6 text-center">
+//           <motion.h2 className="text-3xl font-bold text-white" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>Featuring</motion.h2>
+//           <motion.p className="text-gray-300 mt-2" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }}>
+//             Handpicked favorites from our latest collection
+//           </motion.p>
+
+//           <motion.div
+//             className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true, amount: 0.3 }}
+//             variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.2 } } }}
+//           >
+//             {products.map((product, index) => (
+//               <motion.div
+//                 key={index}
+//                 variants={fadeInUp}
+//                 whileHover={{ scale: 1.03 }}
+//                 className="bg-teal-900 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition relative"
+//               >
+//                 <div className="relative">
+//                   <div className="w-full h-80 overflow-hidden">
+//                     <img 
+//                       src={product.img} 
+//                       alt={product.title} 
+//                       className="w-full h-full object-cover" 
+//                     />
+//                   </div>
+//                   {product.tag && <span className="absolute top-3 left-3 bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full">{product.tag}</span>}
+//                   <button onClick={() => toggleLike(index)} className="absolute top-3 right-3 bg-teal-700 p-2 rounded-full shadow hover:bg-teal-600">
+//                     <FiHeart className={`transition-colors duration-300 ${likedProducts[index] ? "text-pink-400" : "text-gray-300"}`} />
+//                   </button>
+//                 </div>
+//                 <div className="p-4 text-left text-white">
+//                   <span className="text-gray-300 text-sm">{product.category}</span>
+//                   <h3 className="font-bold text-lg">{product.title}</h3>
+//                   <div className="flex items-center text-yellow-400 text-sm mt-1">
+//                     ★ <span className="ml-1 text-gray-300">{product.rating}</span>
+//                   </div>
+//                   <div className="mt-2 flex items-center space-x-2">
+//                     <span className="font-bold text-lg">Rs. {product.price}</span>
+//                     {product.oldPrice && <span className="text-gray-400 line-through text-sm">Rs. {product.oldPrice}</span>}
+//                   </div>
+//                 </div>
+//               </motion.div>
+//             ))}
+//           </motion.div>
+//         </div>
+//       </section>
+//     </>
+
   );
 };
 
