@@ -1,24 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FiHeart } from "react-icons/fi";
+import api from "../../api";
+
 import Sneakers1 from "../../assets/Footwear/Sneakers/sneakers1.webp";
 import Sneakers2 from "../../assets/Footwear/Sneakers/sneakers2.webp";
 import Sneakers3 from "../../assets/Footwear/Sneakers/sneakers3.webp";
-import { FiHeart } from "react-icons/fi";
 
 const Sneakers = () => {
+  const [sneakers, setSneakers] = useState([]);
   const [likedIndex, setLikedIndex] = useState(null);
 
-  const sneakers = [
-    { title: "Stylish Sneakers", price: 129.99, rating: 4.8, img: Sneakers1 },
-    { title: "Casual Sneakers", price: 119.99, rating: 4.7, img: Sneakers2 },
-    { title: "Sporty Sneakers", price: 139.99, rating: 4.9, img: Sneakers3 },
-    { title: "Stylish Sneakers", price: 129.99, rating: 4.8, img: Sneakers1 },
-    { title: "Casual Sneakers", price: 119.99, rating: 4.7, img: Sneakers2 },
-    { title: "Sporty Sneakers", price: 139.99, rating: 4.9, img: Sneakers3 },
+  const defaultSneakers = [
     { title: "Stylish Sneakers", price: 129.99, rating: 4.8, img: Sneakers1 },
     { title: "Casual Sneakers", price: 119.99, rating: 4.7, img: Sneakers2 },
     { title: "Sporty Sneakers", price: 139.99, rating: 4.9, img: Sneakers3 },
   ];
+
+  useEffect(() => {
+    const fetchSneakers = async () => {
+      try {
+        const res = await api.get("/items/read.php?category=Footwear Sneakers");
+        if (res.data.success && res.data.data.length > 0) {
+          setSneakers(res.data.data);
+        } else {
+          setSneakers(defaultSneakers);
+        }
+      } catch (err) {
+        console.error("Failed to fetch sneakers", err);
+        setSneakers(defaultSneakers);
+      }
+    };
+    fetchSneakers();
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -47,14 +61,24 @@ const Sneakers = () => {
             whileHover={{ scale: 1.03 }}
           >
             <div className="relative">
-              <img src={item.img} alt={item.title} className="w-full h-64 object-cover" />
+              <img
+                src={
+                  item.img?.startsWith("http") || item.img?.startsWith("/")
+                    ? item.img
+                    : `http://localhost/fashion_backend/uploads/${item.img}`
+                }
+                alt={item.title}
+                className="w-full h-64 object-cover"
+              />
               <button
                 className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
                   likedIndex === index ? "bg-orange-100" : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => setLikedIndex(index)}
               >
-                <FiHeart className={`text-lg ${likedIndex === index ? "text-orange-500" : "text-gray-700"}`} />
+                <FiHeart
+                  className={`text-lg ${likedIndex === index ? "text-orange-500" : "text-gray-700"}`}
+                />
               </button>
             </div>
             <div className="p-4">
@@ -66,6 +90,8 @@ const Sneakers = () => {
         ))}
       </div>
     </div>
+
+
 
     // <div className="pt-16 bg-gray-950 min-h-screen">
     //   {/* Header */}

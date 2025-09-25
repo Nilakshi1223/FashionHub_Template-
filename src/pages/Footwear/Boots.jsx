@@ -1,24 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FiHeart } from "react-icons/fi";
+import api from "../../api";
+
 import Boots1 from "../../assets/Footwear/Boots/boots1.webp";
 import Boots2 from "../../assets/Footwear/Boots/boots2.webp";
 import Boots3 from "../../assets/Footwear/Boots/boots3.webp";
-import { FiHeart } from "react-icons/fi";
 
 const Boots = () => {
+  const [boots, setBoots] = useState([]);
   const [likedIndex, setLikedIndex] = useState(null);
 
-  const boots = [
-    { title: "Classic Leather Boots", price: 199.99, rating: 4.9, img: Boots1 },
-    { title: "Suede Ankle Boots", price: 179.99, rating: 4.7, img: Boots2 },
-    { title: "Knee-High Boots", price: 219.99, rating: 4.8, img: Boots3 },
-    { title: "Classic Leather Boots", price: 199.99, rating: 4.9, img: Boots1 },
-    { title: "Suede Ankle Boots", price: 179.99, rating: 4.7, img: Boots2 },
-    { title: "Knee-High Boots", price: 219.99, rating: 4.8, img: Boots3 },
-    { title: "Classic Leather Boots", price: 199.99, rating: 4.9, img: Boots1 },
-    { title: "Suede Ankle Boots", price: 179.99, rating: 4.7, img: Boots2 },
-    { title: "Knee-High Boots", price: 219.99, rating: 4.8, img: Boots3 },
+  const defaultBoots = [
+    { title: "Classic Leather Boots", price: 199.99, rating: 4.9, image: Boots1 },
+    { title: "Suede Ankle Boots", price: 179.99, rating: 4.7, image: Boots2 },
+    { title: "Knee-High Boots", price: 219.99, rating: 4.8, image: Boots3 },
   ];
+
+  useEffect(() => {
+    const fetchBoots = async () => {
+      try {
+        const res = await api.get("/items/read.php?category=Footwear Boots");
+        if (res.data.success && res.data.data.length > 0) {
+          setBoots(res.data.data);
+        } else {
+          setBoots(defaultBoots);
+        }
+      } catch (err) {
+        console.error("Failed to fetch boots", err);
+        setBoots(defaultBoots);
+      }
+    };
+    fetchBoots();
+  });
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -37,7 +51,7 @@ const Boots = () => {
 
       {/* Product Grid */}
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {boots.map((item, index) => (
+        {boots.map((boots, index) => (
           <motion.div
             key={index}
             className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition"
@@ -47,25 +61,39 @@ const Boots = () => {
             whileHover={{ scale: 1.03 }}
           >
             <div className="relative">
-              <img src={item.img} alt={item.title} className="w-full h-64 object-cover" />
+              <img
+                src={
+                  boots.image?.startsWith("http") || boots.image?.startsWith("/")
+                    ? boots.image
+                    : `http://localhost/fashion_backend/uploads/${boots.image}`
+                }
+                alt={boots.title}
+                className="w-full h-64 object-cover"
+              />
               <button
                 className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
                   likedIndex === index ? "bg-gray-100" : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => setLikedIndex(index)}
               >
-                <FiHeart className={`text-lg ${likedIndex === index ? "text-gray-800" : "text-gray-700"}`} />
+                <FiHeart
+                  className={`text-lg ${
+                    likedIndex === index ? "text-gray-800" : "text-gray-700"
+                  }`}
+                />
               </button>
             </div>
+
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{item.title}</h3>
-              <p className="text-gray-800 font-bold mt-2">Rs. {item.price}</p>
-              <p className="text-sm text-gray-500 mt-1">⭐ {item.rating} / 5</p>
+              <h3 className="text-lg font-semibold">{boots.title}</h3>
+              <p className="text-gray-800 font-bold mt-2">Rs. {boots.price}</p>
+              <p className="text-sm text-gray-500 mt-1">⭐ {boots.rating} / 5</p>
             </div>
           </motion.div>
         ))}
       </div>
     </div>
+
 
     // <div className="pt-16 bg-gray-950 min-h-screen">
     //   {/* Header */}

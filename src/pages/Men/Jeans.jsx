@@ -1,21 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FiHeart } from "react-icons/fi";
+import api from "../../api";
+
+// Fallback jeans images
 import Jeans1 from "../../assets/Men/Jeans/jeans1.webp";
 import Jeans2 from "../../assets/Men/Jeans/jeans2.webp";
 import Jeans3 from "../../assets/Men/Jeans/jeans3.webp";
-import { FiHeart } from "react-icons/fi";
 
-const Jeans = () => {
+const Jean = () => {
+  const [jeans, setJeans] = useState([]);
   const [likedIndex, setLikedIndex] = useState(null);
 
-  const jeans = [
-    { title: "Slim Fit Jeans", price: 2499, rating: 4.8, img: Jeans1 },
-    { title: "Straight Cut Jeans", price: 2299, rating: 4.7, img: Jeans2 },
-    { title: "Ripped Denim Jeans", price: 2699, rating: 4.6, img: Jeans3 },
-    { title: "Slim Fit Jeans", price: 2499, rating: 4.8, img: Jeans1 },
-    { title: "Straight Cut Jeans", price: 2299, rating: 4.7, img: Jeans2 },
-    { title: "Ripped Denim Jeans", price: 2699, rating: 4.6, img: Jeans3 },
+  // Default fallback jeans
+  const defaultJeans = [
+    { id: 1, name: "Slim Fit Jeans", price: 2499, rate: 4.8, image: Jeans1 },
+    { id: 2, name: "Straight Cut Jeans", price: 2299, rate: 4.7, image: Jeans2 },
+    { id: 3, name: "Ripped Denim Jeans", price: 2699, rate: 4.6, image: Jeans3 },
   ];
+
+  useEffect(() => {
+    const fetchJeans = async () => {
+      try {
+        const res = await api.get("/items/read.php?category=Men Jeans");
+        if (res.data.success && res.data.data.length > 0) {
+          setJeans(res.data.data); // ✅ DB data
+        } else {
+          setJeans(defaultJeans); // ✅ fallback
+        }
+      } catch (err) {
+        console.error("Failed to fetch jeans", err);
+        setJeans(defaultJeans); // ✅ fallback on error
+      }
+    };
+    fetchJeans();
+  });
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -36,7 +55,7 @@ const Jeans = () => {
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {jeans.map((jean, index) => (
           <motion.div
-            key={index}
+            key={jean.id || index}
             className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -44,26 +63,40 @@ const Jeans = () => {
             whileHover={{ scale: 1.03 }}
           >
             <div className="relative">
-              <img src={jean.img} alt={jean.title} className="w-full h-64 object-cover" />
+              <img
+                src={
+                  jean.image?.startsWith("http") || jean.image?.startsWith("/")
+                    ? jean.image
+                    : `http://localhost/fashion_backend/uploads/${jean.image}`
+                }
+                alt={jean.name || jean.title}
+                className="w-full h-64 object-cover"
+              />
               <button
                 className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
                   likedIndex === index ? "bg-blue-100" : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => setLikedIndex(index)}
               >
-                <FiHeart className={`text-lg ${likedIndex === index ? "text-blue-500" : "text-gray-700"}`} />
+                <FiHeart
+                  className={`text-lg ${
+                    likedIndex === index ? "text-blue-500" : "text-gray-700"
+                  }`}
+                />
               </button>
             </div>
 
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{jean.title}</h3>
+              <h3 className="text-lg font-semibold">{jean.name || jean.title}</h3>
               <p className="text-blue-600 font-bold mt-2">Rs. {jean.price}</p>
-              <p className="text-sm text-gray-500 mt-1">⭐ {jean.rating} / 5</p>
+              <p className="text-sm text-gray-500 mt-1">⭐ {jean.rate || jean.rating} / 5</p>
             </div>
           </motion.div>
         ))}
       </div>
     </div>
+
+
 
     // <div className="pt-16 bg-gray-950 min-h-screen">
     //   {/* Header */}
@@ -181,4 +214,4 @@ const Jeans = () => {
   );
 };
 
-export default Jeans;
+export default Jean;

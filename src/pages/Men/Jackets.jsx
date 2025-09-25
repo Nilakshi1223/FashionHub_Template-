@@ -1,21 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FiHeart } from "react-icons/fi";
+import api from "../../api"; // axios instance with baseURL
+
+// Fallback jacket images
 import Jacket1 from "../../assets/Men/Jackets/jacket1.webp";
 import Jacket2 from "../../assets/Men/Jackets/jacket2.webp";
 import Jacket3 from "../../assets/Men/Jackets/jacket3.webp";
-import { FiHeart } from "react-icons/fi";
 
 const Jackets = () => {
+  const [jackets, setJackets] = useState([]);
   const [likedIndex, setLikedIndex] = useState(null);
 
-  const jackets = [
-    { title: "Leather Jacket", price: 4999, rating: 4.9, img: Jacket1 },
-    { title: "Bomber Jacket", price: 4599, rating: 4.8, img: Jacket2 },
-    { title: "Denim Jacket", price: 3999, rating: 4.7, img: Jacket3 },
-    { title: "Leather Jacket", price: 4999, rating: 4.9, img: Jacket1 },
-    { title: "Bomber Jacket", price: 4599, rating: 4.8, img: Jacket2 },
-    { title: "Denim Jacket", price: 3999, rating: 4.7, img: Jacket3 },
+  // Fallback jackets if DB is empty
+  const defaultJackets = [
+    { id: 1, name: "Leather Jacket", price: 4999, rate: 4.9, image: Jacket1 },
+    { id: 2, name: "Bomber Jacket", price: 4599, rate: 4.8, image: Jacket2 },
+    { id: 3, name: "Denim Jacket", price: 3999, rate: 4.7, image: Jacket3 },
   ];
+
+  useEffect(() => {
+    const fetchJackets = async () => {
+      try {
+        const res = await api.get("/items/read.php?category=Men Jackets");
+        if (res.data.success && res.data.data.length > 0) {
+          setJackets(res.data.data); // ✅ DB items
+        } else {
+          setJackets(defaultJackets); // ✅ fallback
+        }
+      } catch (err) {
+        console.error("Failed to fetch jackets", err);
+        setJackets(defaultJackets); // ✅ fallback on error
+      }
+    };
+    fetchJackets();
+  });
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -36,7 +55,7 @@ const Jackets = () => {
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {jackets.map((jacket, index) => (
           <motion.div
-            key={index}
+            key={jacket.id || index}
             className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -44,26 +63,40 @@ const Jackets = () => {
             whileHover={{ scale: 1.03 }}
           >
             <div className="relative">
-              <img src={jacket.img} alt={jacket.title} className="w-full h-64 object-cover" />
+              <img
+                src={
+                  jacket.image.startsWith("http") || jacket.image.startsWith("/")
+                    ? jacket.image
+                    : `http://localhost/fashion_backend/uploads/${jacket.image}`
+                }
+                alt={jacket.name || jacket.title}
+                className="w-full h-64 object-cover"
+              />
               <button
                 className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
                   likedIndex === index ? "bg-blue-100" : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => setLikedIndex(index)}
               >
-                <FiHeart className={`text-lg ${likedIndex === index ? "text-blue-500" : "text-gray-700"}`} />
+                <FiHeart
+                  className={`text-lg ${
+                    likedIndex === index ? "text-blue-500" : "text-gray-700"
+                  }`}
+                />
               </button>
             </div>
 
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{jacket.title}</h3>
+              <h3 className="text-lg font-semibold">{jacket.name || jacket.title}</h3>
               <p className="text-blue-600 font-bold mt-2">Rs. {jacket.price}</p>
-              <p className="text-sm text-gray-500 mt-1">⭐ {jacket.rating} / 5</p>
+              <p className="text-sm text-gray-500 mt-1">⭐ {jacket.rate || jacket.rating} / 5</p>
             </div>
           </motion.div>
         ))}
       </div>
     </div>
+
+
 
     // <div className="pt-16 bg-gray-950 min-h-screen">
     //   {/* Header */}

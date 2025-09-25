@@ -1,27 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { FiHeart } from "react-icons/fi";
+import api from "../../api"; // axios instance with baseURL
 import Top1 from "../../assets/Women/Tops/top1.webp";
 import Top2 from "../../assets/Women/Tops/top2.webp";
 import Top3 from "../../assets/Women/Tops/top3.webp";
-import { FiHeart } from "react-icons/fi";
 
 const Tops = () => {
+  const [tops, setTops] = useState([]);
   const [likedIndex, setLikedIndex] = useState(null);
 
-  const tops = [
-    { title: "Casual White Top", price: 89.99, rating: 4.7, img: Top1 },
-    { title: "Floral Blouse", price: 119.99, rating: 4.8, img: Top2 },
-    { title: "Chic Crop Top", price: 99.99, rating: 4.6, img: Top3 },
-    { title: "Casual White Top", price: 89.99, rating: 4.7, img: Top1 },
-    { title: "Floral Blouse", price: 119.99, rating: 4.8, img: Top2 },
-    { title: "Chic Crop Top", price: 99.99, rating: 4.6, img: Top3 },
-    { title: "Casual White Top", price: 89.99, rating: 4.7, img: Top1 },
-    { title: "Floral Blouse", price: 119.99, rating: 4.8, img: Top2 },
-    { title: "Chic Crop Top", price: 99.99, rating: 4.6, img: Top3 },
-    { title: "Casual White Top", price: 89.99, rating: 4.7, img: Top1 },
-    { title: "Floral Blouse", price: 119.99, rating: 4.8, img: Top2 },
-    { title: "Chic Crop Top", price: 99.99, rating: 4.6, img: Top3 },
+  // Default fallback tops
+  const defaultTops = [
+    { id: 1, name: "Casual White Top", price: 89.99, rate: 4.7, image: Top1 },
+    { id: 2, name: "Floral Blouse", price: 119.99, rate: 4.8, image: Top2 },
+    { id: 3, name: "Chic Crop Top", price: 99.99, rate: 4.6, image: Top3 },
   ];
+
+  useEffect(() => {
+    const fetchTops = async () => {
+      try {
+        const res = await api.get("/items/read.php?category=Women Tops");
+        if (res.data.success && res.data.data.length > 0) {
+          setTops(res.data.data);
+        } else {
+          setTops(defaultTops); // fallback if DB empty
+        }
+      } catch (err) {
+        console.error("Failed to fetch tops", err);
+        setTops(defaultTops); // fallback if error
+      }
+    };
+    fetchTops();
+  });
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -44,7 +55,7 @@ const Tops = () => {
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {tops.map((top, index) => (
           <motion.div
-            key={index}
+            key={top.id || index}
             className="bg-white shadow-md rounded-xl overflow-hidden cursor-pointer"
             whileHover={{ scale: 1.03 }}
             initial={{ opacity: 0, y: 30 }}
@@ -53,8 +64,12 @@ const Tops = () => {
           >
             <div className="relative">
               <img
-                src={top.img}
-                alt={top.title}
+                src={
+                  top.image.startsWith("http") || top.image.startsWith("/")
+                    ? top.image
+                    : `http://localhost/fashion_backend/uploads/${top.image}`
+                }
+                alt={top.name}
                 className="w-full h-64 object-cover"
               />
               <button
@@ -74,142 +89,14 @@ const Tops = () => {
             </div>
 
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{top.title}</h3>
+              <h3 className="text-lg font-semibold">{top.name}</h3>
               <p className="text-pink-600 font-bold mt-2">Rs. {top.price}</p>
-              <p className="text-sm text-gray-500 mt-1">
-                ⭐ {top.rating} / 5
-              </p>
+              <p className="text-sm text-gray-500 mt-1">⭐ {top.rate} / 5</p>
             </div>
           </motion.div>
         ))}
       </div>
     </div>
-
-    // <div className="pt-16 bg-gray-950 min-h-screen">
-    //   {/* Header */}
-    //   <motion.section
-    //     className="bg-gradient-to-r from-gray-950 via-gray-900 to-pink-950 py-12"
-    //     initial={{ opacity: 0, y: 50 }}
-    //     animate={{ opacity: 1, y: 0 }}
-    //     transition={{ duration: 0.8 }}
-    //   >
-    //     <div className="max-w-7xl mx-auto px-6 text-center">
-    //       <h1 className="text-4xl font-bold text-pink-600">Tops Collection</h1>
-    //       <p className="mt-2 text-gray-600">
-    //         Explore our stylish tops for every occasion.
-    //       </p>
-    //     </div>
-    //   </motion.section>
-
-    //   {/* Product Grid */}
-    //   <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-    //     {tops.map((top, index) => (
-    //       <motion.div
-    //         key={index}
-    //         className="bg-gray-900 shadow-md rounded-xl overflow-hidden cursor-pointer"
-    //         whileHover={{ scale: 1.03 }}
-    //         initial={{ opacity: 0, y: 30 }}
-    //         animate={{ opacity: 1, y: 0 }}
-    //         transition={{ delay: index * 0.1, duration: 0.5 }}
-    //       >
-    //         <div className="relative">
-    //           <img
-    //             src={top.img}
-    //             alt={top.title}
-    //             className="w-full h-64 object-cover"
-    //           />
-    //           <button
-    //         className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
-    //           likedIndex === index
-    //             ? "bg-pink-600"
-    //             : "bg-gray-800 hover:bg-gray-700"
-    //         }`}
-    //         onClick={() => setLikedIndex(likedIndex === index ? null : index)}
-    //       >
-    //         <FiHeart
-    //           className={`text-lg ${
-    //             likedIndex === index ? "text-white" : "text-pink-400"
-    //           }`}
-    //         />
-    //       </button>
-    //         </div>
-
-    //         <div className="p-4">
-    //           <h3 className="text-lg font-semibold text-gray-100">{top.title}</h3>
-    //           <p className="text-pink-400 font-bold mt-2">Rs. {top.price}</p>
-    //           <p className="text-sm text-gray-400 mt-1">
-    //             ⭐ {top.rating} / 5
-    //           </p>
-    //         </div>
-    //       </motion.div>
-    //     ))}
-    //   </div>
-    // </div>
-
-
-    
-    // <div className="pt-16 bg-gray-950 min-h-screen">
-    //   {/* Header */}
-    //   <motion.section
-    //     className="bg-gradient-to-r from-gray-900 via-gray-800 to-teal-900 py-12"
-    //     initial={{ opacity: 0, y: 50 }}
-    //     animate={{ opacity: 1, y: 0 }}
-    //     transition={{ duration: 0.8 }}
-    //   >
-    //     <div className="max-w-7xl mx-auto px-6 text-center">
-    //       <h1 className="text-4xl font-bold text-teal-400">Tops Collection</h1>
-    //       <p className="mt-2 text-teal-100">
-    //         Explore our stylish tops for every occasion.
-    //       </p>
-    //     </div>
-    //   </motion.section>
-
-    //   {/* Product Grid */}
-    //   <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-    //     {tops.map((top, index) => (
-    //       <motion.div
-    //         key={index}
-    //         className="bg-teal-900 shadow-lg rounded-2xl overflow-hidden cursor-pointer hover:shadow-2xl transition"
-    //         whileHover={{ scale: 1.03 }}
-    //         initial={{ opacity: 0, y: 30 }}
-    //         animate={{ opacity: 1, y: 0 }}
-    //         transition={{ delay: index * 0.1, duration: 0.5 }}
-    //       >
-    //         <div className="relative">
-    //           <img
-    //             src={top.img}
-    //             alt={top.title}
-    //             className="w-full h-64 object-cover"
-    //           />
-    //           <button
-    //             className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
-    //               likedIndex === index
-    //                 ? "bg-teal-400"
-    //                 : "bg-teal-800 hover:bg-teal-700"
-    //             }`}
-    //             onClick={() => setLikedIndex(likedIndex === index ? null : index)}
-    //           >
-    //             <FiHeart
-    //               className={`text-lg ${
-    //                 likedIndex === index ? "text-white" : "text-teal-200"
-    //               }`}
-    //             />
-    //           </button>
-    //         </div>
-
-    //         <div className="p-4">
-    //           <h3 className="text-lg font-semibold text-teal-100">{top.title}</h3>
-    //           <p className="text-teal-400 font-bold mt-2">Rs. {top.price}</p>
-    //           <p className="text-sm text-teal-200 mt-1">
-    //             ⭐ {top.rating} / 5
-    //           </p>
-    //         </div>
-    //       </motion.div>
-    //     ))}
-    //   </div>
-    // </div>
-
-
   );
 };
 

@@ -1,24 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FiHeart } from "react-icons/fi";
+import api from "../../api";
+
 import Heels1 from "../../assets/Footwear/Heels/heels1.webp";
 import Heels2 from "../../assets/Footwear/Heels/heels2.webp";
 import Heels3 from "../../assets/Footwear/Heels/heels3.webp";
-import { FiHeart } from "react-icons/fi";
 
 const Heels = () => {
+  const [heels, setHeels] = useState([]);
   const [likedIndex, setLikedIndex] = useState(null);
 
-  const heels = [
-    { title: "Elegant Heels", price: 109.99, rating: 4.8, img: Heels1 },
-    { title: "Party Heels", price: 129.99, rating: 4.7, img: Heels2 },
-    { title: "Casual Heels", price: 99.99, rating: 4.6, img: Heels3 },
-    { title: "Elegant Heels", price: 109.99, rating: 4.8, img: Heels1 },
-    { title: "Party Heels", price: 129.99, rating: 4.7, img: Heels2 },
-    { title: "Casual Heels", price: 99.99, rating: 4.6, img: Heels3 },
+  const defaultHeels = [
     { title: "Elegant Heels", price: 109.99, rating: 4.8, img: Heels1 },
     { title: "Party Heels", price: 129.99, rating: 4.7, img: Heels2 },
     { title: "Casual Heels", price: 99.99, rating: 4.6, img: Heels3 },
   ];
+
+  useEffect(() => {
+    const fetchHeels = async () => {
+      try {
+        const res = await api.get("/items/read.php?category=Footwear Heels");
+        if (res.data.success && res.data.data.length > 0) {
+          setHeels(res.data.data);
+        } else {
+          setHeels(defaultHeels);
+        }
+      } catch (err) {
+        console.error("Failed to fetch heels", err);
+        setHeels(defaultHeels);
+      }
+    };
+    fetchHeels();
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -31,7 +45,9 @@ const Heels = () => {
       >
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1 className="text-4xl font-bold text-pink-600">Heels Collection</h1>
-          <p className="mt-2 text-gray-600">Stylish heels for parties and special occasions.</p>
+          <p className="mt-2 text-gray-600">
+            Stylish heels for parties and special occasions.
+          </p>
         </div>
       </motion.section>
 
@@ -43,18 +59,30 @@ const Heels = () => {
             className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1, duration: 0.5}}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
             whileHover={{ scale: 1.03 }}
           >
             <div className="relative">
-              <img src={item.img} alt={item.title} className="w-full h-64 object-cover" />
+              <img
+                src={
+                  item.img?.startsWith("http") || item.img?.startsWith("/")
+                    ? item.img
+                    : `http://localhost/fashion_backend/uploads/${item.img}`
+                }
+                alt={item.title}
+                className="w-full h-64 object-cover"
+              />
               <button
                 className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
                   likedIndex === index ? "bg-pink-100" : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => setLikedIndex(index)}
               >
-                <FiHeart className={`text-lg ${likedIndex === index ? "text-pink-500" : "text-gray-700"}`} />
+                <FiHeart
+                  className={`text-lg ${
+                    likedIndex === index ? "text-pink-500" : "text-gray-700"
+                  }`}
+                />
               </button>
             </div>
             <div className="p-4">
@@ -66,6 +94,8 @@ const Heels = () => {
         ))}
       </div>
     </div>
+
+
 
     // <div className="pt-16 bg-gray-950 min-h-screen">
     //   {/* Header */}

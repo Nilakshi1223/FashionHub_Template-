@@ -1,27 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FiHeart } from "react-icons/fi";
+import api from "../../api"; // axios instance with baseURL
+
+// Local fallback images
 import Mini1 from "../../assets/Women/MiniDress/mini1.webp";
 import Mini2 from "../../assets/Women/MiniDress/mini2.webp";
 import Mini3 from "../../assets/Women/MiniDress/mini3.webp";
-import { FiHeart } from "react-icons/fi";
 
 const MiniDress = () => {
+  const [miniDresses, setMiniDresses] = useState([]);
   const [likedIndex, setLikedIndex] = useState(null);
 
-  const miniDresses = [
-    { title: "Classic Black Mini Dress", price: 149.99, rating: 4.8, img: Mini1 },
-    { title: "Floral Print Mini Dress", price: 129.99, rating: 4.7, img: Mini2 },
-    { title: "Casual White Mini Dress", price: 139.99, rating: 4.6, img: Mini3 },
-    { title: "Classic Black Mini Dress", price: 149.99, rating: 4.8, img: Mini2 },
-    { title: "Floral Print Mini Dress", price: 129.99, rating: 4.7, img: Mini3 },
-    { title: "Casual White Mini Dress", price: 139.99, rating: 4.6, img: Mini1 },
-    { title: "Classic Black Mini Dress", price: 149.99, rating: 4.8, img: Mini1 },
-    { title: "Floral Print Mini Dress", price: 129.99, rating: 4.7, img: Mini2 },
-    { title: "Casual White Mini Dress", price: 139.99, rating: 4.6, img: Mini3 },
-    { title: "Classic Black Mini Dress", price: 149.99, rating: 4.8, img: Mini2 },
-    { title: "Floral Print Mini Dress", price: 129.99, rating: 4.7, img: Mini3 },
-    { title: "Casual White Mini Dress", price: 139.99, rating: 4.6, img: Mini1 },
+  // Fallback data if DB is empty
+  const defaultDresses = [
+    { id: 1, name: "Classic Black Mini Dress", price: 149.99, rate: 4.8, image: Mini1 },
+    { id: 2, name: "Floral Print Mini Dress", price: 129.99, rate: 4.7, image: Mini2 },
+    { id: 3, name: "Casual White Mini Dress", price: 139.99, rate: 4.6, image: Mini3 },
   ];
+
+  useEffect(() => {
+    const fetchMiniDresses = async () => {
+      try {
+        const res = await api.get("/items/read.php?category=Mini Dress");
+        if (res.data.success && res.data.data.length > 0) {
+          setMiniDresses(res.data.data); // ✅ DB data
+        } else {
+          setMiniDresses(defaultDresses); // ✅ fallback
+        }
+      } catch (err) {
+        console.error("Failed to fetch mini dresses", err);
+        setMiniDresses(defaultDresses); // ✅ fallback on error
+      }
+    };
+    fetchMiniDresses();
+  });
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -42,9 +55,9 @@ const MiniDress = () => {
 
       {/* Product Grid */}
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {miniDresses.map((dress, index) => (
+        {miniDresses.map((minidress, index) => (
           <motion.div
-            key={index}
+            key={minidress.id || index}
             className="bg-white shadow-md rounded-xl overflow-hidden cursor-pointer"
             whileHover={{ scale: 1.03 }}
             initial={{ opacity: 0, y: 30 }}
@@ -53,8 +66,12 @@ const MiniDress = () => {
           >
             <div className="relative">
               <img
-                src={dress.img}
-                alt={dress.title}
+                src={
+                  minidress.image.startsWith("http") || minidress.image.startsWith("/")
+                    ? minidress.image
+                    : `http://localhost/fashion_backend/uploads/${minidress.image}`
+                }
+                alt={minidress.name || minidress.title}
                 className="w-full h-64 object-cover"
               />
               <button
@@ -74,14 +91,22 @@ const MiniDress = () => {
             </div>
 
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{dress.title}</h3>
-              <p className="text-pink-600 font-bold mt-2">Rs. {dress.price}</p>
-              <p className="text-sm text-gray-500 mt-1">⭐ {dress.rating} / 5</p>
+              <h3 className="text-lg font-semibold">
+                {minidress.name || minidress.title}
+              </h3>
+              <p className="text-pink-600 font-bold mt-2">
+                Rs. {minidress.price}
+              </p>
+              <p className="text-sm text-gray-500 mt-1">
+                ⭐ {minidress.rate || minidress.rating} / 5
+              </p>
             </div>
           </motion.div>
         ))}
       </div>
     </div>
+
+
 
     // <div className="pt-16 bg-gray-950 min-h-screen">
     //   {/* Header */}

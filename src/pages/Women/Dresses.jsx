@@ -1,27 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FiHeart } from "react-icons/fi";
+import api from "../../api"; // axios instance with baseURL
+
+// Local fallback images
 import Dress1 from "../../assets/Women/Dress/dress.webp";
 import Dress2 from "../../assets/Women/Dress/dress2.webp";
 import Dress3 from "../../assets/Women/Dress/dress3.webp";
-import { FiHeart } from "react-icons/fi";
 
 const Dresses = () => {
+  const [dresses, setDresses] = useState([]);
   const [likedIndex, setLikedIndex] = useState(null);
 
-  const dresses = [
-    { title: "Elegant Summer Dress", price: 129.99, rating: 4.8, img: Dress1 },
-    { title: "Floral Maxi Dress", price: 149.99, rating: 4.7, img: Dress2 },
-    { title: "Casual Mini Dress", price: 99.99, rating: 4.6, img: Dress3 },
-    { title: "Elegant Summer Dress", price: 129.99, rating: 4.8, img: Dress2 },
-    { title: "Floral Maxi Dress", price: 149.99, rating: 4.7, img: Dress3 },
-    { title: "Casual Mini Dress", price: 99.99, rating: 4.6, img: Dress1 },
-    { title: "Elegant Summer Dress", price: 129.99, rating: 4.8, img: Dress1 },
-    { title: "Floral Maxi Dress", price: 149.99, rating: 4.7, img: Dress2 },
-    { title: "Casual Mini Dress", price: 99.99, rating: 4.6, img: Dress3 },
-    { title: "Elegant Summer Dress", price: 129.99, rating: 4.8, img: Dress2 },
-    { title: "Floral Maxi Dress", price: 149.99, rating: 4.7, img: Dress3 },
-    { title: "Casual Mini Dress", price: 99.99, rating: 4.6, img: Dress1 },
+  // Default fallback dresses
+  const defaultDresses = [
+    { id: 1, name: "Elegant Summer Dress", price: 129.99, rate: 4.8, image: Dress1 },
+    { id: 2, name: "Floral Maxi Dress", price: 149.99, rate: 4.7, image: Dress2 },
+    { id: 3, name: "Casual Mini Dress", price: 99.99, rate: 4.6, image: Dress3 },
   ];
+
+  useEffect(() => {
+    const fetchDresses = async () => {
+      try {
+        const res = await api.get("/items/read.php?category=Dress");
+        if (res.data.success && res.data.data.length > 0) {
+          setDresses(res.data.data); // ✅ DB data
+        } else {
+          setDresses(defaultDresses); // ✅ fallback
+        }
+      } catch (err) {
+        console.error("Failed to fetch dresses", err);
+        setDresses(defaultDresses); // ✅ fallback on error
+      }
+    };
+    fetchDresses();
+  });
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -44,7 +57,7 @@ const Dresses = () => {
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {dresses.map((dress, index) => (
           <motion.div
-            key={index}
+            key={dress.id || index}
             className="bg-white shadow-md rounded-xl overflow-hidden cursor-pointer"
             whileHover={{ scale: 1.03 }}
             initial={{ opacity: 0, y: 30 }}
@@ -53,13 +66,19 @@ const Dresses = () => {
           >
             <div className="relative">
               <img
-                src={dress.img}
-                alt={dress.title}
+                src={
+                  dress.image.startsWith("http") || dress.image.startsWith("/")
+                    ? dress.image
+                    : `http://localhost/fashion_backend/uploads/${dress.image}`
+                }
+                alt={dress.name || dress.title}
                 className="w-full h-64 object-cover"
               />
               <button
                 className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
-                  likedIndex === index ? "bg-pink-100" : "bg-white hover:bg-gray-100"
+                  likedIndex === index
+                    ? "bg-pink-100"
+                    : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => setLikedIndex(index)}
               >
@@ -70,15 +89,18 @@ const Dresses = () => {
                 />
               </button>
             </div>
+
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{dress.title}</h3>
+              <h3 className="text-lg font-semibold">{dress.name || dress.title}</h3>
               <p className="text-pink-600 font-bold mt-2">Rs. {dress.price}</p>
-              <p className="text-sm text-gray-500 mt-1">⭐ {dress.rating} / 5</p>
+              <p className="text-sm text-gray-500 mt-1">⭐ {dress.rate || dress.rating} / 5</p>
             </div>
           </motion.div>
         ))}
       </div>
     </div>
+
+
 
     // <div className="pt-16 bg-gray-950 min-h-screen">
     //   {/* Header */}

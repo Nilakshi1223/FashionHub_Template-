@@ -1,27 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { FiHeart } from "react-icons/fi";
+import api from "../../api"; // axios instance with baseURL
 import Saree1 from "../../assets/Women/Saree/saree1.webp";
 import Saree2 from "../../assets/Women/Saree/saree2.webp";
 import Saree3 from "../../assets/Women/Saree/saree3.webp";
-import { FiHeart } from "react-icons/fi";
 
 const Sarees = () => {
+  const [sarees, setSarees] = useState([]);
   const [likedIndex, setLikedIndex] = useState(null);
 
-  const sarees = [
-    { title: "Elegant Silk Saree", price: 199.99, rating: 4.9, img: Saree1 },
-    { title: "Floral Cotton Saree", price: 149.99, rating: 4.7, img: Saree2 },
-    { title: "Designer Georgette Saree", price: 179.99, rating: 4.8, img: Saree3 },
-    { title: "Traditional Kanjivaram Saree", price: 249.99, rating: 5.0, img: Saree1 },
-    { title: "Soft Linen Saree", price: 129.99, rating: 4.6, img: Saree2 },
-    { title: "Party Wear Net Saree", price: 189.99, rating: 4.7, img: Saree3 },
-    { title: "Traditional Kanjivaram Saree", price: 249.99, rating: 5.0, img: Saree1 },
-    { title: "Soft Linen Saree", price: 129.99, rating: 4.6, img: Saree2 },
-    { title: "Party Wear Net Saree", price: 189.99, rating: 4.7, img: Saree3 },
-    { title: "Traditional Kanjivaram Saree", price: 249.99, rating: 5.0, img: Saree1 },
-    { title: "Soft Linen Saree", price: 129.99, rating: 4.6, img: Saree2 },
-    { title: "Party Wear Net Saree", price: 189.99, rating: 4.7, img: Saree3 },
+  // Default static sarees (fallback if DB empty)
+  const defaultSarees = [
+    { id: 1, name: "Elegant Silk Saree", price: 199.99, rate: 4.9, image: Saree1 },
+    { id: 2, name: "Floral Cotton Saree", price: 149.99, rate: 4.7, image: Saree2 },
+    { id: 3, name: "Designer Georgette Saree", price: 179.99, rate: 4.8, image: Saree3 },
   ];
+
+  useEffect(() => {
+    const fetchSarees = async () => {
+      try {
+        const res = await api.get("/items/read.php?category=Ladies Saree");
+        if (res.data.success && res.data.data.length > 0) {
+          setSarees(res.data.data);
+        } else {
+          setSarees(defaultSarees); // fallback
+        }
+      } catch (err) {
+        console.error("Failed to fetch sarees", err);
+        setSarees(defaultSarees); // fallback if error
+      }
+    };
+    fetchSarees();
+  });
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -44,7 +55,7 @@ const Sarees = () => {
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {sarees.map((saree, index) => (
           <motion.div
-            key={index}
+            key={saree.id || index}
             className="bg-white shadow-md rounded-xl overflow-hidden cursor-pointer"
             whileHover={{ scale: 1.03 }}
             initial={{ opacity: 0, y: 30 }}
@@ -53,8 +64,12 @@ const Sarees = () => {
           >
             <div className="relative">
               <img
-                src={saree.img}
-                alt={saree.title}
+                src={
+                  saree.image.startsWith("http") || saree.image.startsWith("/")
+                    ? saree.image
+                    : `http://localhost/fashion_backend/uploads/${saree.image}`
+                }
+                alt={saree.name}
                 className="w-full h-64 object-cover"
               />
               <button
@@ -74,16 +89,17 @@ const Sarees = () => {
             </div>
 
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{saree.title}</h3>
+              <h3 className="text-lg font-semibold">{saree.name}</h3>
               <p className="text-pink-600 font-bold mt-2">Rs. {saree.price}</p>
               <p className="text-sm text-gray-500 mt-1">
-                ⭐ {saree.rating} / 5
+                ⭐ {saree.rate} / 5
               </p>
             </div>
           </motion.div>
         ))}
       </div>
     </div>
+
 
     // <div className="pt-16 bg-gray-950 min-h-screen">
     //   {/* Header */}

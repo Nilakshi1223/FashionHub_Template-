@@ -14,6 +14,12 @@ import SneakersImg from "../assets/sneakers.webp";
 import BagImg from "../assets/bag.webp";
 import { FiHeart } from "react-icons/fi";
 
+import Login from "./admin/Login";
+import Signup from "./admin/Signup";
+import Dashboard from "./admin/Dashboard";
+import Items from "./admin/Items";
+import AddItem from "./admin/AddItem";
+
 const Home = () => {
   const categories = [
     { title: "Women's Fashion", subtitle: "Elegant & Trendy", img: WomenImg, overlay: "bg-pink-500 bg-opacity-50", link: "/women" },
@@ -230,6 +236,13 @@ const Home = () => {
               </motion.div>
             ))}
           </motion.div>
+          
+          <Login/>
+          <Signup/>
+          <Dashboard/>
+          <Items/>
+          <AddItem/>
+        
         </div>
       </section>
     </>

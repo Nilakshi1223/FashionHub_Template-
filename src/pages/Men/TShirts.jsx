@@ -1,21 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FiHeart } from "react-icons/fi";
+import api from "../../api"; // axios instance
+
+// Fallback images
 import TShirt1 from "../../assets/Men/TShirts/tshirt1.webp";
 import TShirt2 from "../../assets/Men/TShirts/tshirt2.webp";
 import TShirt3 from "../../assets/Men/TShirts/tshirt3.webp";
-import { FiHeart } from "react-icons/fi";
 
 const TShirts = () => {
+  const [tshirts, setTshirts] = useState([]);
   const [likedIndex, setLikedIndex] = useState(null);
 
-  const tshirts = [
-    { title: "Graphic Tee", price: 1499, rating: 4.7, img: TShirt1 },
-    { title: "Basic Round Neck", price: 999, rating: 4.6, img: TShirt2 },
-    { title: "Striped Casual Tee", price: 1299, rating: 4.8, img: TShirt3 },
-    { title: "Graphic Tee", price: 1499, rating: 4.7, img: TShirt1 },
-    { title: "Basic Round Neck", price: 999, rating: 4.6, img: TShirt2 },
-    { title: "Striped Casual Tee", price: 1299, rating: 4.8, img: TShirt3 },
+  const defaultTShirts = [
+    { id: 1, name: "Graphic Tee", price: 1499, rate: 4.7, image: TShirt1 },
+    { id: 2, name: "Basic Round Neck", price: 999, rate: 4.6, image: TShirt2 },
+    { id: 3, name: "Striped Casual Tee", price: 1299, rate: 4.8, image: TShirt3 },
   ];
+
+  useEffect(() => {
+    const fetchTShirts = async () => {
+      try {
+        const res = await api.get("/items/read.php?category=Men T-Shirts");
+        if (res.data.success && res.data.data.length > 0) {
+          setTshirts(res.data.data);
+        } else {
+          setTshirts(defaultTShirts); // fallback if DB empty
+        }
+      } catch (err) {
+        console.error("Failed to fetch t-shirts", err);
+        setTshirts(defaultTShirts); // fallback on error
+      }
+    };
+    fetchTShirts();
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -38,7 +56,7 @@ const TShirts = () => {
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {tshirts.map((tshirt, index) => (
           <motion.div
-            key={index}
+            key={tshirt.id || index}
             className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -46,26 +64,40 @@ const TShirts = () => {
             whileHover={{ scale: 1.03 }}
           >
             <div className="relative">
-              <img src={tshirt.img} alt={tshirt.title} className="w-full h-64 object-cover" />
+              <img
+                src={
+                  tshirt.image?.startsWith("http") || tshirt.image?.startsWith("/")
+                    ? tshirt.image
+                    : `http://localhost/fashion_backend/uploads/${tshirt.image}`
+                }
+                alt={tshirt.name || tshirt.title}
+                className="w-full h-64 object-cover"
+              />
               <button
                 className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
                   likedIndex === index ? "bg-blue-100" : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => setLikedIndex(index)}
               >
-                <FiHeart className={`text-lg ${likedIndex === index ? "text-blue-500" : "text-gray-700"}`} />
+                <FiHeart
+                  className={`text-lg ${
+                    likedIndex === index ? "text-blue-500" : "text-gray-700"
+                  }`}
+                />
               </button>
             </div>
 
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{tshirt.title}</h3>
+              <h3 className="text-lg font-semibold">{tshirt.name || tshirt.title}</h3>
               <p className="text-blue-600 font-bold mt-2">Rs. {tshirt.price}</p>
-              <p className="text-sm text-gray-500 mt-1">⭐ {tshirt.rating} / 5</p>
+              <p className="text-sm text-gray-500 mt-1">⭐ {tshirt.rate || tshirt.rating} / 5</p>
             </div>
           </motion.div>
         ))}
       </div>
     </div>
+
+
 
     // <div className="pt-16 bg-gray-950 min-h-screen">
     //   {/* Header */}

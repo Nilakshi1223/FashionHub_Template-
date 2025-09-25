@@ -1,24 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FiHeart } from "react-icons/fi";
+import api from "../../api";
+
 import Sandals1 from "../../assets/Footwear/Sandals/sandals1.webp";
 import Sandals2 from "../../assets/Footwear/Sandals/sandals2.webp";
 import Sandals3 from "../../assets/Footwear/Sandals/sandals3.webp";
-import { FiHeart } from "react-icons/fi";
 
 const Sandals = () => {
+  const [sandals, setSandals] = useState([]);
   const [likedIndex, setLikedIndex] = useState(null);
 
-  const sandals = [
-    { title: "Summer Sandals", price: 79.99, rating: 4.7, img: Sandals1 },
-    { title: "Beach Sandals", price: 69.99, rating: 4.6, img: Sandals2 },
-    { title: "Casual Sandals", price: 89.99, rating: 4.8, img: Sandals3 },
-    { title: "Summer Sandals", price: 79.99, rating: 4.7, img: Sandals1 },
-    { title: "Beach Sandals", price: 69.99, rating: 4.6, img: Sandals2 },
-    { title: "Casual Sandals", price: 89.99, rating: 4.8, img: Sandals3 },
+  const defaultSandals = [
     { title: "Summer Sandals", price: 79.99, rating: 4.7, img: Sandals1 },
     { title: "Beach Sandals", price: 69.99, rating: 4.6, img: Sandals2 },
     { title: "Casual Sandals", price: 89.99, rating: 4.8, img: Sandals3 },
   ];
+
+  useEffect(() => {
+    const fetchSandals = async () => {
+      try {
+        const res = await api.get("/items/read.php?category=Footwear Sandals");
+        if (res.data.success && res.data.data.length > 0) {
+          setSandals(res.data.data);
+        } else {
+          setSandals(defaultSandals);
+        }
+      } catch (err) {
+        console.error("Failed to fetch sandals", err);
+        setSandals(defaultSandals);
+      }
+    };
+    fetchSandals();
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -47,14 +61,24 @@ const Sandals = () => {
             whileHover={{ scale: 1.03 }}
           >
             <div className="relative">
-              <img src={item.img} alt={item.title} className="w-full h-64 object-cover" />
+              <img
+                src={
+                  item.img?.startsWith("http") || item.img?.startsWith("/")
+                    ? item.img
+                    : `http://localhost/fashion_backend/uploads/${item.img}`
+                }
+                alt={item.title}
+                className="w-full h-64 object-cover"
+              />
               <button
                 className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
                   likedIndex === index ? "bg-yellow-100" : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => setLikedIndex(index)}
               >
-                <FiHeart className={`text-lg ${likedIndex === index ? "text-yellow-500" : "text-gray-700"}`} />
+                <FiHeart
+                  className={`text-lg ${likedIndex === index ? "text-yellow-500" : "text-gray-700"}`}
+                />
               </button>
             </div>
             <div className="p-4">
@@ -66,6 +90,8 @@ const Sandals = () => {
         ))}
       </div>
     </div>
+
+
 
     // <div className="pt-16 bg-gray-950 min-h-screen">
     //   {/* Header */}
