@@ -32,7 +32,7 @@ const Handbag = () => {
       }
     };
     fetchHandbags();
-  }, []); // <- run once on mount
+  }); // <- run once on mount
 
   return (
     <div className="pt-24 bg-white min-h-screen">

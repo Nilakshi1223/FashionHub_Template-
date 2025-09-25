@@ -32,7 +32,7 @@ const Sandals = () => {
       }
     };
     fetchSandals();
-  }, []);
+  });
 
   return (
     <div className="pt-24 bg-white min-h-screen">
