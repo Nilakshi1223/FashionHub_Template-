@@ -22,7 +22,7 @@ const Dresses = () => {
   useEffect(() => {
     const fetchDresses = async () => {
       try {
-        const res = await api.get("/items/read.php?category=Dress");
+        const res = await api.get("/items/read.php?mainCategory=Women&category=Dress");
         if (res.data.success && res.data.data.length > 0) {
           setDresses(res.data.data); // ✅ DB data
         } else {
@@ -34,7 +34,7 @@ const Dresses = () => {
       }
     };
     fetchDresses();
-  });
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -92,6 +92,12 @@ const Dresses = () => {
 
             <div className="p-4">
               <h3 className="text-lg font-semibold">{dress.name || dress.title}</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Brand:{" "}
+                <span className="font-medium text-gray-700">
+                  {dress.brand || "Unknown"}
+                </span>
+              </p>
               <p className="text-pink-600 font-bold mt-2">Rs. {dress.price}</p>
               <p className="text-sm text-gray-500 mt-1">⭐ {dress.rate || dress.rating} / 5</p>
             </div>

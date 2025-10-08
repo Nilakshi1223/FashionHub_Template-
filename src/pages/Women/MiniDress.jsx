@@ -22,7 +22,7 @@ const MiniDress = () => {
   useEffect(() => {
     const fetchMiniDresses = async () => {
       try {
-        const res = await api.get("/items/read.php?category=Mini Dress");
+        const res = await api.get("/items/read.php?mainCategory=Women&category=Mini Dress");
         if (res.data.success && res.data.data.length > 0) {
           setMiniDresses(res.data.data); // ✅ DB data
         } else {
@@ -34,7 +34,7 @@ const MiniDress = () => {
       }
     };
     fetchMiniDresses();
-  });
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -94,6 +94,12 @@ const MiniDress = () => {
               <h3 className="text-lg font-semibold">
                 {minidress.name || minidress.title}
               </h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Brand:{" "}
+                <span className="font-medium text-gray-700">
+                  {minidress.brand || "Unknown"}
+                </span>
+              </p>
               <p className="text-pink-600 font-bold mt-2">
                 Rs. {minidress.price}
               </p>

@@ -20,7 +20,7 @@ const Sandals = () => {
   useEffect(() => {
     const fetchSandals = async () => {
       try {
-        const res = await api.get("/items/read.php?category=Footwear Sandals");
+        const res = await api.get("/items/read.php?mainCategory=Footwear&category=Sandals");
         if (res.data.success && res.data.data.length > 0) {
           setSandals(res.data.data);
         } else {
@@ -32,7 +32,7 @@ const Sandals = () => {
       }
     };
     fetchSandals();
-  });
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -63,13 +63,14 @@ const Sandals = () => {
             <div className="relative">
               <img
                 src={
-                  item.img?.startsWith("http") || item.img?.startsWith("/")
-                    ? item.img
-                    : `http://localhost/fashion_backend/uploads/${item.img}`
+                  item.image?.startsWith("http") || item.image?.startsWith("/")
+                    ? item.image
+                    : `http://localhost/fashion_backend/uploads/${item.image}`
                 }
                 alt={item.title}
                 className="w-full h-64 object-cover"
               />
+              
               <button
                 className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
                   likedIndex === index ? "bg-yellow-100" : "bg-white hover:bg-gray-100"
@@ -82,9 +83,15 @@ const Sandals = () => {
               </button>
             </div>
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{item.title}</h3>
+              <h3 className="text-lg font-semibold">{item.name ||item.title}</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Brand:{" "}
+                <span className="font-medium text-gray-700">
+                  {item.brand || "Unknown"}
+                </span>
+              </p>
               <p className="text-yellow-600 font-bold mt-2">Rs. {item.price}</p>
-              <p className="text-sm text-gray-500 mt-1">⭐ {item.rating} / 5</p>
+              <p className="text-sm text-gray-500 mt-1">⭐ {item.rating || item.rate} / 5</p>
             </div>
           </motion.div>
         ))}

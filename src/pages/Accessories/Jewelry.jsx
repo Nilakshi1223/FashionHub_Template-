@@ -22,7 +22,7 @@ const Jewelry = () => {
   useEffect(() => {
     const fetchJewelry = async () => {
       try {
-        const res = await api.get("/items/read.php?category=Accessories Jewelry");
+        const res = await api.get("/items/read.php?mainCategory=Accessories&category=Jewelry");
         if (res.data.success && res.data.data.length > 0) {
           setJewelry(res.data.data);
         } else {
@@ -35,7 +35,7 @@ const Jewelry = () => {
     };
 
     fetchJewelry();
-  });
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -89,7 +89,7 @@ const Jewelry = () => {
               </button>
             </div>
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{jewelry.title}</h3>
+              <h3 className="text-lg font-semibold">{jewelry.name ||jewelry.title}</h3>
               <p className="text-purple-600 font-bold mt-2">Rs. {jewelry.price}</p>
               <p className="text-sm text-gray-500 mt-1">⭐ {jewelry.rating} / 5</p>
             </div>

@@ -22,7 +22,7 @@ const Jackets = () => {
   useEffect(() => {
     const fetchJackets = async () => {
       try {
-        const res = await api.get("/items/read.php?category=Men Jackets");
+        const res = await api.get("/items/read.php?mainCategory=Men&category=Jackets");
         if (res.data.success && res.data.data.length > 0) {
           setJackets(res.data.data); // ✅ DB items
         } else {
@@ -88,6 +88,12 @@ const Jackets = () => {
 
             <div className="p-4">
               <h3 className="text-lg font-semibold">{jacket.name || jacket.title}</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Brand:{" "}
+                <span className="font-medium text-gray-700">
+                  {jacket.brand || "Unknown"}
+                </span>
+              </p>
               <p className="text-blue-600 font-bold mt-2">Rs. {jacket.price}</p>
               <p className="text-sm text-gray-500 mt-1">⭐ {jacket.rate || jacket.rating} / 5</p>
             </div>

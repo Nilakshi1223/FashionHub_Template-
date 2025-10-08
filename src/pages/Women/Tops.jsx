@@ -12,15 +12,36 @@ const Tops = () => {
 
   // Default fallback tops
   const defaultTops = [
-    { id: 1, name: "Casual White Top", price: 89.99, rate: 4.7, image: Top1 },
-    { id: 2, name: "Floral Blouse", price: 119.99, rate: 4.8, image: Top2 },
-    { id: 3, name: "Chic Crop Top", price: 99.99, rate: 4.6, image: Top3 },
+    {
+      id: 1,
+      name: "Casual White Top",
+      brand: "Zara",
+      price: 89.99,
+      rate: 4.7,
+      image: Top1,
+    },
+    {
+      id: 2,
+      name: "Floral Blouse",
+      brand: "H&M",
+      price: 119.99,
+      rate: 4.8,
+      image: Top2,
+    },
+    {
+      id: 3,
+      name: "Chic Crop Top",
+      brand: "Mango",
+      price: 99.99,
+      rate: 4.6,
+      image: Top3,
+    },
   ];
 
   useEffect(() => {
     const fetchTops = async () => {
       try {
-        const res = await api.get("/items/read.php?category=Women Tops");
+        const res = await api.get("/items/read.php?mainCategory=Women&category=Top");
         if (res.data.success && res.data.data.length > 0) {
           setTops(res.data.data);
         } else {
@@ -32,7 +53,7 @@ const Tops = () => {
       }
     };
     fetchTops();
-  });
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -65,7 +86,7 @@ const Tops = () => {
             <div className="relative">
               <img
                 src={
-                  top.image.startsWith("http") || top.image.startsWith("/")
+                  top.image?.startsWith("http") || top.image?.startsWith("/")
                     ? top.image
                     : `http://localhost/fashion_backend/uploads/${top.image}`
                 }
@@ -78,7 +99,9 @@ const Tops = () => {
                     ? "bg-pink-100"
                     : "bg-white hover:bg-gray-100"
                 }`}
-                onClick={() => setLikedIndex(index)}
+                onClick={() =>
+                  setLikedIndex(likedIndex === index ? null : index)
+                }
               >
                 <FiHeart
                   className={`text-lg ${
@@ -90,6 +113,12 @@ const Tops = () => {
 
             <div className="p-4">
               <h3 className="text-lg font-semibold">{top.name}</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Brand:{" "}
+                <span className="font-medium text-gray-700">
+                  {top.brand || "Unknown"}
+                </span>
+              </p>
               <p className="text-pink-600 font-bold mt-2">Rs. {top.price}</p>
               <p className="text-sm text-gray-500 mt-1">⭐ {top.rate} / 5</p>
             </div>

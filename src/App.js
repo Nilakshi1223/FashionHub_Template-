@@ -42,6 +42,7 @@ import Signup from "./pages/admin/Signup";
 import Dashboard from "./pages/admin/Dashboard";
 import Items from "./pages/admin/Items";
 import AddItem from "./pages/admin/AddItem";
+import EditItem from "./pages/admin/EditItem";
 
 function App() {
   const isAdminRoute = window.location.pathname.startsWith("/admin");
@@ -94,6 +95,7 @@ function App() {
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="items" element={<Items />} />
                 <Route path="add-item" element={<AddItem />} />
+                <Route path="/edit-item/:id" element={<EditItem />} />
               </Routes>
             </div>
           }

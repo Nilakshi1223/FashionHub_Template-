@@ -22,7 +22,7 @@ const Hats = () => {
   useEffect(() => {
     const fetchHats = async () => {
       try {
-        const res = await api.get("/items/read.php?category=Accessories Hats");
+        const res = await api.get("/items/read.php?mainCategory=Accessories&category=Hats");
         if (res.data.success && res.data.data.length > 0) {
           setHats(res.data.data);
         } else {
@@ -35,7 +35,7 @@ const Hats = () => {
     };
 
     fetchHats();
-  });
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -89,7 +89,7 @@ const Hats = () => {
               </button>
             </div>
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{hats.title}</h3>
+              <h3 className="text-lg font-semibold">{hats.name ||hats.title}</h3>
               <p className="text-yellow-600 font-bold mt-2">Rs. {hats.price}</p>
               <p className="text-sm text-gray-500 mt-1">⭐ {hats.rating} / 5</p>
             </div>

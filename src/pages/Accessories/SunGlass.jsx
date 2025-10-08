@@ -22,7 +22,7 @@ const SunGlass = () => {
   useEffect(() => {
     const fetchGlasses = async () => {
       try {
-        const res = await api.get("/items/read.php?category=Accessories Sunglasses");
+        const res = await api.get("//items/read.php?mainCategory=Accessories&category=Sunglasses");
         if (res.data.success && res.data.data.length > 0) {
           setGlasses(res.data.data);
         } else {
@@ -35,7 +35,7 @@ const SunGlass = () => {
     };
 
     fetchGlasses();
-  });
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -89,7 +89,7 @@ const SunGlass = () => {
               </button>
             </div>
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{sunGlass.title}</h3>
+              <h3 className="text-lg font-semibold">{sunGlass.name ||sunGlass.title}</h3>
               <p className="text-blue-600 font-bold mt-2">Rs. {sunGlass.price}</p>
               <p className="text-sm text-gray-500 mt-1">⭐ {sunGlass.rating} / 5</p>
             </div>

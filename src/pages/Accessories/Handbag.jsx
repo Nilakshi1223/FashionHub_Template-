@@ -20,7 +20,7 @@ const Handbag = () => {
   useEffect(() => {
     const fetchHandbags = async () => {
       try {
-        const res = await api.get("/items/read.php?category=Accessories Handbag");
+        const res = await api.get("/items/read.php?mainCategory=Accessories&category=Handbag");
         if (res.data.success && res.data.data.length > 0) {
           setHandbags(res.data.data);
         } else {
@@ -32,7 +32,7 @@ const Handbag = () => {
       }
     };
     fetchHandbags();
-  }); // <- run once on mount
+  }, []); // <- run once on mount
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -86,7 +86,7 @@ const Handbag = () => {
               </button>
             </div>
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{item.title}</h3>
+              <h3 className="text-lg font-semibold">{item.name ||item.title}</h3>
               <p className="text-pink-600 font-bold mt-2">Rs. {item.price}</p>
               <p className="text-sm text-gray-500 mt-1">⭐ {item.rating} / 5</p>
             </div>
@@ -94,7 +94,6 @@ const Handbag = () => {
         ))}
       </div>
     </div>
-
 
 
 //     <div className="pt-16 bg-gray-950 min-h-screen">

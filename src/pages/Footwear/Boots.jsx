@@ -20,7 +20,7 @@ const Boots = () => {
   useEffect(() => {
     const fetchBoots = async () => {
       try {
-        const res = await api.get("/items/read.php?category=Footwear Boots");
+        const res = await api.get("/items/read.php?mainCategory=Footwear&category=Boots");
         if (res.data.success && res.data.data.length > 0) {
           setBoots(res.data.data);
         } else {
@@ -32,7 +32,7 @@ const Boots = () => {
       }
     };
     fetchBoots();
-  });
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -85,9 +85,15 @@ const Boots = () => {
             </div>
 
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{boots.title}</h3>
+              <h3 className="text-lg font-semibold">{boots.name ||boots.title}</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Brand:{" "}
+                <span className="font-medium text-gray-700">
+                  {boots.brand || "Unknown"}
+                </span>
+              </p>
               <p className="text-gray-800 font-bold mt-2">Rs. {boots.price}</p>
-              <p className="text-sm text-gray-500 mt-1">⭐ {boots.rating} / 5</p>
+              <p className="text-sm text-gray-500 mt-1">⭐ {boots.rating|| boots.rate} / 5</p>
             </div>
           </motion.div>
         ))}

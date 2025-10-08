@@ -20,7 +20,7 @@ const Heels = () => {
   useEffect(() => {
     const fetchHeels = async () => {
       try {
-        const res = await api.get("/items/read.php?category=Footwear Heels");
+        const res = await api.get("/items/read.php?mainCategory=Footwear&category=Heels");
         if (res.data.success && res.data.data.length > 0) {
           setHeels(res.data.data);
         } else {
@@ -32,7 +32,7 @@ const Heels = () => {
       }
     };
     fetchHeels();
-  });
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -53,7 +53,7 @@ const Heels = () => {
 
       {/* Product Grid */}
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {heels.map((item, index) => (
+        {heels.map((heels, index) => (
           <motion.div
             key={index}
             className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition"
@@ -65,13 +65,14 @@ const Heels = () => {
             <div className="relative">
               <img
                 src={
-                  item.img?.startsWith("http") || item.img?.startsWith("/")
-                    ? item.img
-                    : `http://localhost/fashion_backend/uploads/${item.img}`
+                  heels.image?.startsWith("http") || heels.image?.startsWith("/")
+                    ? heels.image
+                    : `http://localhost/fashion_backend/uploads/${heels.img}`
                 }
-                alt={item.title}
+                alt={heels.title}
                 className="w-full h-64 object-cover"
               />
+              
               <button
                 className={`absolute top-3 right-3 p-2 rounded-full shadow transition ${
                   likedIndex === index ? "bg-pink-100" : "bg-white hover:bg-gray-100"
@@ -86,9 +87,15 @@ const Heels = () => {
               </button>
             </div>
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{item.title}</h3>
-              <p className="text-pink-600 font-bold mt-2">Rs. {item.price}</p>
-              <p className="text-sm text-gray-500 mt-1">⭐ {item.rating} / 5</p>
+              <h3 className="text-lg font-semibold">{heels.name ||heels.title}</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Brand:{" "}
+                <span className="font-medium text-gray-700">
+                  {heels.brand || "Unknown"}
+                </span>
+              </p>
+              <p className="text-pink-600 font-bold mt-2">Rs. {heels.price}</p>
+              <p className="text-sm text-gray-500 mt-1">⭐ {heels.rating || heels.rate} / 5</p>
             </div>
           </motion.div>
         ))}

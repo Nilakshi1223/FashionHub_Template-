@@ -11,30 +11,42 @@ export default function Signup() {
     fullName: "",
   });
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setError(""); // clear error on input change
+    setSuccess("");
   };
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
     if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match!");
+      setError("Passwords do not match!");
       return;
     }
 
+    setLoading(true);
+    setError("");
+    setSuccess("");
+
     try {
       const res = await api.post("/signup.php", form);
+
       if (res.data.success) {
-        alert("Signup successful!");
-        navigate("/");
+        setSuccess("Signup successful! Redirecting...");
+        setTimeout(() => navigate("/admin/login"), 1500); // redirect after 1.5s
       } else {
-        alert(res.data.message);
+        setError(res.data.message || "Signup failed. Try again.");
       }
     } catch (err) {
-      alert("Signup failed");
+      setError("Server error: Could not connect to backend.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,6 +56,19 @@ export default function Signup() {
         <h2 className="text-2xl font-bold text-center text-pink-600 mb-4">
           Create an Account
         </h2>
+
+        {/* Show error or success */}
+        {error && (
+          <div className="mb-3 text-red-600 text-sm font-medium bg-red-100 p-2 rounded">
+            {error}
+          </div>
+        )}
+        {success && (
+          <div className="mb-3 text-green-600 text-sm font-medium bg-green-100 p-2 rounded">
+            {success}
+          </div>
+        )}
+
         <form onSubmit={handleSignup} className="space-y-4">
           <input
             name="fullName"
@@ -88,13 +113,20 @@ export default function Signup() {
             className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
             required
           />
+
           <button
             type="submit"
-            className="w-full bg-pink-500 text-white p-2 rounded-lg font-semibold hover:bg-pink-600 transition duration-200"
+            disabled={loading}
+            className={`w-full text-white p-2 rounded-lg font-semibold transition duration-200 ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-pink-500 hover:bg-pink-600"
+            }`}
           >
-            Signup
+            {loading ? "Signing up..." : "Signup"}
           </button>
         </form>
+
         <p
           onClick={() => navigate("/admin/login")}
           className="text-center text-sm text-pink-600 mt-4 cursor-pointer hover:underline"

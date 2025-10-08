@@ -21,7 +21,7 @@ const TShirts = () => {
   useEffect(() => {
     const fetchTShirts = async () => {
       try {
-        const res = await api.get("/items/read.php?category=Men T-Shirts");
+        const res = await api.get("/items/read.php?mainCategory=Men&category=T-Shirts");
         if (res.data.success && res.data.data.length > 0) {
           setTshirts(res.data.data);
         } else {
@@ -33,7 +33,7 @@ const TShirts = () => {
       }
     };
     fetchTShirts();
-  });
+  }, []);
 
   return (
     <div className="pt-24 bg-white min-h-screen">
@@ -89,6 +89,12 @@ const TShirts = () => {
 
             <div className="p-4">
               <h3 className="text-lg font-semibold">{tshirt.name || tshirt.title}</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Brand:{" "}
+                <span className="font-medium text-gray-700">
+                  {tshirt.brand || "Unknown"}
+                </span>
+              </p>
               <p className="text-blue-600 font-bold mt-2">Rs. {tshirt.price}</p>
               <p className="text-sm text-gray-500 mt-1">⭐ {tshirt.rate || tshirt.rating} / 5</p>
             </div>
